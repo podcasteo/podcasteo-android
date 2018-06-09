@@ -1,0 +1,110 @@
+env:
+  browser: true
+  es6: true
+  mocha: true
+  node: true
+
+parser: babel-eslint
+parserOptions:
+  ecmaVersion: 7
+  ecmaFeatures:
+    jsx: true
+
+extends:
+  - airbnb
+
+plugins:
+  - import
+  - react
+
+settings:
+  import/resolver:
+    babel-module: {}
+
+rules:
+  no-underscore-dangle: 0
+  import/extensions: 0
+  import/first: 0
+  import/no-extraneous-dependencies:
+    - error
+    - devDependencies:
+      - "**/*.unit.js"
+      - "**/*.test.js"
+      - "**/*.spec.js"
+  import/order:
+    - error
+    - newlines-between: always
+  jsx-a11y/anchor-is-valid: 0
+  react/forbid-prop-types: 0
+  react/jsx-pascal-case: 0
+  react/jsx-filename-extension: 0
+  react/prefer-stateless-function: 0
+  react/no-array-index-key: 0
+  array-bracket-newline:
+    - error
+    - minItems: 1
+  array-element-newline:
+    - error
+    - always
+  arrow-parens:
+    - error
+    - always
+  brace-style:
+    - error
+    - 1tbs
+    - allowSingleLine: false
+  id-length:
+    - error
+    - exceptions:
+      - i
+  max-len: 0
+  no-multiple-empty-lines:
+    - warn
+    - max: 1
+  no-plusplus: 0
+  object-curly-newline:
+    - error
+    - minProperties: 1
+  object-property-newline: error
+  padding-line-between-statements:
+    - error
+    - blankLine: always
+      prev: "*"
+      next:
+        - block
+        - block-like
+        - return
+    - blankLine: always
+      prev:
+        - block
+        - block-like
+        - return
+      next: "*"
+    - blankLine: always
+      prev: "*"
+      next:
+        - const
+        - let
+    - blankLine: always
+      prev:
+        - const
+        - let
+      next: "*"
+    - blankLine: never
+      prev:
+        - const
+        - let
+      next:
+        - const
+        - let
+  semi:
+    - error
+    - never
+
+overrides:
+  - files:
+    - "*.test.js"
+    - "*.unit.js"
+    - "*.spec.js"
+    rules:
+      no-unused-expressions: 'off'

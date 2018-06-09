@@ -1,0 +1,15 @@
+{
+  "expo": {
+   "name": "Podcasteo",
+   "icon": "./src/assets/icons/app-icon.png",
+   "version": "0.0.1",
+   "slug": "podcasteo",
+   "sdkVersion": "27.0.0",
+   "ios": {
+     "bundleIdentifier": "com.podcasteo.podcasteo"
+   },
+   "android": {
+     "package": "com.podcasteo.podcasteo"
+   }
+  }
+}
