@@ -2,9 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import get from 'lodash/get'
-import { // eslint-disable-line
-  FontAwesome,
-} from '@expo/vector-icons'
 import {
   AsyncStorage,
   StyleSheet,
@@ -13,10 +10,13 @@ import {
   Input,
   Button,
 } from 'react-native-elements'
+import { // eslint-disable-line
+  FontAwesome,
+} from '@expo/vector-icons'
 
-import PasswordInput from 'components/PasswordInput'
 import settings from 'helpers/settings'
 import validateEmail from 'helpers/validateEmail'
+import PasswordInput from 'components/PasswordInput'
 
 const Screen = styled.KeyboardAvoidingView`
   flex: 1;
@@ -36,7 +36,7 @@ const InputLine = styled.View`
   margin-bottom: 15;
   margin-right: 15;
 `
-const Error = styled.Text`
+const ErrorText = styled.Text`
   margin-left: 10;
   font-weight: bold;
   color: red;
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   },
 })
 
-export default class SignIn extends React.Component {
+export default class SignUp extends React.Component {
   static propTypes = {
     createUser: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired,
@@ -60,21 +60,21 @@ export default class SignIn extends React.Component {
     super(props)
 
     this.state = {
-      username: '',
-      email: '',
-      password: '',
       confirmPassword: '',
+      email: '',
       error: '',
+      password: '',
       isLoading: false,
+      username: '',
     }
   }
 
   onSignUp = async () => {
     const {
-      username,
+      confirmPassword,
       email,
       password,
-      confirmPassword,
+      username,
     } = this.state
     const {
       createUser,
@@ -122,7 +122,7 @@ export default class SignIn extends React.Component {
         isLoading: false,
       })
 
-      return history.push('/home')
+      return history.push('/app/dashboard')
     } catch (error) {
       this.setState({
         isLoading: false,
@@ -211,7 +211,7 @@ export default class SignIn extends React.Component {
             </InputLine>
           </Formulaire>
         </Scroll>
-        <Error>{this.state.error}</Error>
+        <ErrorText>{this.state.error}</ErrorText>
         <Button
           onPress={this.onSignUp}
           containerStyle={{

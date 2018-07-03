@@ -1,20 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { // eslint-disable-line
-  Ionicons,
-} from '@expo/vector-icons'
 import {
   AsyncStorage,
   Dimensions,
   StyleSheet,
   View,
 } from 'react-native'
+import { // eslint-disable-line
+  Ionicons,
+} from '@expo/vector-icons'
 
 import slide1 from 'assets/slides/intro_1.png'
 import slide2 from 'assets/slides/intro_2.png'
 import slide3 from 'assets/slides/intro_3.png'
-import AppIntroSlider from 'components/AppIntroSlider'
 import settings from 'helpers/settings'
+import AppIntroSlider from 'components/AppIntroSlider'
 
 const {
   width: appWidth,
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
 const slides = [
   {
     key: 'introduction',
-    title: 'Podcastéo ?',
+    title: '',
     text: 'Rejoins la communauté Podcastéo et découvre les Podcasts du moment.',
     image: slide1,
     imageStyle: styles.image,
@@ -45,7 +45,7 @@ const slides = [
   },
   {
     key: 'social',
-    title: 'Classement',
+    title: '',
     text: 'En devenant membre Podcastéo tu peux découvrir la progression de tes podcasts préféré à travers différents réseaux.',
     image: slide2,
     imageStyle: styles.image,
@@ -53,7 +53,7 @@ const slides = [
   },
   {
     key: 'radio',
-    title: 'Webradio',
+    title: '',
     text: 'Tu peux aussi écouter la webradio Podcastéo, diffusant une selection de podcast choisie avec amour.',
     image: slide3,
     imageStyle: styles.image,

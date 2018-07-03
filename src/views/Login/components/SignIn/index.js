@@ -2,9 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import get from 'lodash/get'
-import { // eslint-disable-line
-  FontAwesome,
-} from '@expo/vector-icons'
 import {
   AsyncStorage,
   StyleSheet,
@@ -13,10 +10,13 @@ import {
   Input,
   Button,
 } from 'react-native-elements'
+import { // eslint-disable-line
+  FontAwesome,
+} from '@expo/vector-icons'
 
-import PasswordInput from 'components/PasswordInput'
 import settings from 'helpers/settings'
 import validateEmail from 'helpers/validateEmail'
+import PasswordInput from 'components/PasswordInput'
 
 const Screen = styled.View`
   flex: 1;
@@ -54,8 +54,8 @@ const styles = StyleSheet.create({
 
 export default class SignIn extends React.Component {
   static propTypes = {
-    onLogin: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired,
+    onLogin: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -63,9 +63,9 @@ export default class SignIn extends React.Component {
 
     this.state = {
       email: '',
-      password: '',
       error: null,
       isLoading: false,
+      password: '',
     }
   }
 
@@ -107,7 +107,7 @@ export default class SignIn extends React.Component {
         isLoading: false,
       })
 
-      return history.push('/home')
+      return history.push('/app/dashboard')
     } catch (error) {
       this.setState({
         isLoading: false,

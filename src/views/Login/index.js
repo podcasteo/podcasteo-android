@@ -7,9 +7,9 @@ import {
 
 import LoginView from './Login'
 
-import loginMutation from 'api/users/login'
 import createUserMutation from 'api/users/createUser'
 import handleFacebookMutation from 'api/users/handleFacebook'
+import loginMutation from 'api/users/login'
 
 @graphql(loginMutation, {
   name: 'loginMutation',
@@ -54,6 +54,7 @@ import handleFacebookMutation from 'api/users/handleFacebook'
       facebookId,
       firstname,
       lastname,
+      facebookAvatar,
     }) => props.handleFacebookMutation({
       variables: {
         input: {
@@ -62,6 +63,7 @@ import handleFacebookMutation from 'api/users/handleFacebook'
           facebookId,
           firstname,
           lastname,
+          facebookAvatar,
         },
       },
     }),

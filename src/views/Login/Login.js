@@ -12,11 +12,11 @@ import {
   Button,
 } from 'react-native-elements'
 
-import SignIn from 'views/Login/components/SignIn'
-import SignUp from 'views/Login/components/SignUp'
-import ButtonUnderline from 'components/ButtonUnderline'
 import logo from 'assets/icons/logo.png'
 import settings from 'helpers/settings'
+import ButtonUnderline from 'components/ButtonUnderline'
+import SignIn from 'views/Login/components/SignIn'
+import SignUp from 'views/Login/components/SignUp'
 
 const TabButtonRow = styled.View`
   margin-top: 10;
@@ -40,7 +40,7 @@ const IconHeader = styled.Image`
   width: 80
   height: 80
 `
-const Error = styled.Text`
+const ErrorText = styled.Text`
   margin-left: 10;
   font-weight: bold;
   color: red;
@@ -48,18 +48,18 @@ const Error = styled.Text`
 
 export default class Login extends React.Component {
   static propTypes = {
-    onLogin: PropTypes.func.isRequired,
-    handleFacebook: PropTypes.func.isRequired,
     createUser: PropTypes.func.isRequired,
+    handleFacebook: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired,
+    onLogin: PropTypes.func.isRequired,
   }
 
   constructor(props) {
     super(props)
     this.state = {
-      signin: true,
-      isLoading: false,
       error: null,
+      isLoading: false,
+      signin: true,
     }
   }
 
@@ -85,7 +85,7 @@ export default class Login extends React.Component {
 
       if (type === 'success') {
         // Get the user's name using Facebook's Graph API
-        const response = await fetch(`https://graph.facebook.com/me?access_token=${token}&fields=id,email,first_name,last_name,short_name`)
+        const response = await fetch(`https://graph.facebook.com/me?access_token=${token}&fields=id,email,first_name,last_name,short_name,picture.width(500).height(500)`)
         const data = await response.json()
         const result = await handleFacebook({
           facebookId: data.id,
@@ -93,15 +93,14 @@ export default class Login extends React.Component {
           firstname: data.first_name,
           lastname: data.last_name,
           username: data.short_name,
+          facebookAvatar: data.picture.data.url,
         })
 
         await AsyncStorage.setItem(settings.authToken, result.data.handleFacebook.token)
 
-        return history.push('/home')
+        return history.push('/app/dashboard')
       }
     } catch (error) {
-      console.log('error', error)
-
       return this.setState({
         isLoading: false,
         error: error.message,
@@ -147,7 +146,7 @@ export default class Login extends React.Component {
             : <SignUp history={history} createUser={this.props.createUser} />
         }
         <Bottom>
-          <Error>{this.state.error}</Error>
+          <ErrorText>{this.state.error}</ErrorText>
           <TabButtonRow>
             <Button
               onPress={this.onFacebookLogin}

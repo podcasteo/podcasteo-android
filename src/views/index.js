@@ -3,18 +3,24 @@ import {
   ApolloProvider,
 } from 'react-apollo'
 import {
-  NativeRouter,
-} from 'react-router-native'
-import {
   StyleSheet,
   View,
 } from 'react-native'
 import {
+  BackButton,
+  NativeRouter,
+  Switch,
+  Route,
+} from 'react-router-native'
+import {
   Constants,
 } from 'expo'
 
-import routes from 'helpers/routes'
 import apolloClient from 'helpers/apolloClient'
+import CheckLoggedIn from 'views/CheckLoggedIn'
+import Home from 'views/Home'
+import Introduction from 'views/Introduction'
+import Login from 'views/Login'
 
 const styles = StyleSheet.create({
   container: {
@@ -32,8 +38,14 @@ export default class App extends React.Component {
       <ApolloProvider client={apolloClient}>
         <NativeRouter>
           <View style={styles.container}>
+            <BackButton />
             <View style={styles.statusBar} />
-            {routes}
+            <Switch>
+              <Route path="/" component={CheckLoggedIn} exact />
+              <Route path="/introduction" component={Introduction} exact />
+              <Route path="/login" component={Login} />
+              <Route path="/app" component={Home} />
+            </Switch>
           </View>
         </NativeRouter>
       </ApolloProvider>

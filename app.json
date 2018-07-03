@@ -6,10 +6,14 @@
    "slug": "podcasteo",
    "sdkVersion": "27.0.0",
    "ios": {
-     "bundleIdentifier": "com.podcasteo.podcasteo"
+     "bundleIdentifier": "com.podcasteo.podcasteo",
+     "infoPlist": {
+        "LSApplicationQueriesSchemes": ["fb", "twitter", "soundcloud", "itms"]
+      }
    },
    "android": {
      "package": "com.podcasteo.podcasteo"
-   }
+   },
+   "scheme": "podcasteo"
   }
 }
