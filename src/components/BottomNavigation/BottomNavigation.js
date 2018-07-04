@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import find from 'lodash/find'
-import get from 'lodash/get'
 import {
   matchPath,
 } from 'react-router-native'
@@ -68,8 +67,13 @@ export default class BottomNavigationView extends React.Component {
   constructor(props) {
     super(props)
 
+    const {
+      currentPath,
+    } = this.props
+    const pathTab = this.getPathTab(currentPath)
+
     this.state = {
-      activeTab: null,
+      activeTab: pathTab.key,
     }
   }
 
@@ -81,26 +85,33 @@ export default class BottomNavigationView extends React.Component {
     const {
       currentPath,
     } = this.props
-    const pathTab = find(navigations, (nav) => matchPath(currentPath, {
-      path: nav.path,
-    }))
-    const pathKey = get(pathTab, 'key', null)
+    const pathTab = this.getPathTab(currentPath)
 
-    if (pathKey && (pathKey !== this.state.activeTab)) {
-      this.onTabPress(pathTab)
-    }
+    this.updateTab(pathTab)
   }
 
-  onTabPress = (tab) => {
+  onTabPress = (newTab) => {
     const {
       history,
     } = this.props
 
-    this.setState({
-      activeTab: tab.key, // eslint-disable-line
-    })
+    this.updateTab(newTab)
 
-    return history.push(tab.path)
+    return history.push(newTab.path)
+  }
+
+  getPathTab = (currentPath) => {
+    const pathTab = find(navigations, (nav) => matchPath(currentPath, {
+      path: nav.path,
+    }))
+
+    return pathTab || {}
+  }
+
+  updateTab = (newTab) => {
+    this.setState({
+      activeTab: newTab.key, // eslint-disable-line
+    })
   }
 
   renderIcon = (icon) => (item) => {
@@ -132,11 +143,6 @@ export default class BottomNavigationView extends React.Component {
       isActive = tab.key === activeTab
     }
 
-    console.log('tab', tab)
-    console.log('activeTab', activeTab)
-    console.log('isActive', isActive)
-    console.log('-----')
-
     return (
       <ShiftingTab
         animationDuration={300}
@@ -152,8 +158,6 @@ export default class BottomNavigationView extends React.Component {
   }
 
   render() {
-    console.log('props', this.props)
-
     return (
       <BottomNavigation
         onTabPress={this.onTabPress}

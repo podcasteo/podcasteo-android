@@ -37,16 +37,17 @@ export default class App extends React.Component {
     return (
       <ApolloProvider client={apolloClient}>
         <NativeRouter>
-          <View style={styles.container}>
-            <BackButton />
-            <View style={styles.statusBar} />
-            <Switch>
-              <Route path="/" component={CheckLoggedIn} exact />
-              <Route path="/introduction" component={Introduction} exact />
-              <Route path="/login" component={Login} />
-              <Route path="/app" component={Home} />
-            </Switch>
-          </View>
+          <BackButton>
+            <View style={styles.container}>
+              <View style={styles.statusBar} />
+              <Switch>
+                <Route path="/" component={CheckLoggedIn} exact />
+                <Route path="/introduction" component={Introduction} exact />
+                <Route path="/login" component={Login} />
+                <Route path="/app" component={Home} />
+              </Switch>
+            </View>
+          </BackButton>
         </NativeRouter>
       </ApolloProvider>
     )
