@@ -21,7 +21,7 @@ import Rankings from 'views/Rankings'
 import Search from 'views/Search'
 import Settings from 'views/Settings'
 import User from 'views/User'
-import Users from 'views/Users'
+import Profile from 'views/Profile'
 
 const styles = StyleSheet.create({
   container: {
@@ -48,11 +48,11 @@ export default class Home extends React.Component {
         <Switch>
           <Route path="/app/dashboard" component={Dashboard} exact />
           <Route path="/app/rankings" component={Rankings} exact />
-          <Route path="/app/podcasts/:id" component={Podcast} />
+          <Route path="/app/podcasts/:slug" component={Podcast} />
           <Route path="/app/groups" component={Groups} exact />
-          <Route path="/app/groups/:id" component={Group} />
-          <Route path="/app/users" component={Users} exact />
-          <Route path="/app/users/:id" component={User} />
+          <Route path="/app/groups/:slug" component={Group} />
+          <Route path="/app/profile" component={Profile} exact />
+          <Route path="/app/users/:slug" component={User} />
           <Route path="/app/search" component={Search} exact />
           <Route path="/app/settings" component={Settings} exact />
           <Redirect to="/app/dashboard" />

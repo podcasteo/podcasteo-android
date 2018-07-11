@@ -61,7 +61,7 @@ const slides = [
   },
 ]
 
-export default class Introduction extends React.Component {
+export default class Introduction extends React.PureComponent {
   static propTypes = {
     history: PropTypes.object.isRequired,
   }

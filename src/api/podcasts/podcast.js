@@ -1,10 +1,11 @@
 import gql from 'graphql-tag'
 
 export default gql`
-  query podcast($id: String) {
-    podcast(id: $id) {
+  query podcast($slug: String) {
+    podcast(slug: $slug) {
       id
       name
+      slug
       avatar
       description
     }

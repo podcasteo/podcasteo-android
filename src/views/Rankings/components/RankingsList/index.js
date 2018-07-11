@@ -3,88 +3,58 @@ import PropTypes from 'prop-types'
 import {
   Query,
 } from 'react-apollo'
-import {
-  Text,
-  View,
-} from 'react-native'
 
 import RankingsListView from './RankingsList'
 
 import rankingsQuery from 'api/podcasts/rankings'
-import Loader from 'components/Loader'
 
-export default class RankingsList extends React.Component {
+export default class RankingsList extends React.PureComponent {
   static propTypes = {
     date: PropTypes.string.isRequired,
   }
 
-  constructor(props) {
-    super(props)
+  onResult = ({
+    data,
+    fetchMore,
+    networkStatus,
+    refetch,
+  }) => (
+    <RankingsListView
+      networkStatus={networkStatus}
+      rankings={data.rankings}
+      refetch={refetch}
+      onLoadMore={() => fetchMore({
+        variables: {
+          offset: data.rankings.data.length,
+        },
+        updateQuery: this.updateQuery,
+      })}
+    />
+  )
 
-    this.state = {
-      first: 10,
-      offset: 0,
-    }
-  }
-
-  onResult = (result) => {
-    const {
-      data,
-      loading,
-      fetchMore,
-      error,
-    } = result
-    const {
-      offset,
-      first,
-    } = this.state
-
-    if (loading) {
-      return <Loader />
-    }
-
-    if (error) {
-      return (
-        <View>
-          <Text>ERROR</Text>
-        </View>
-      )
-    }
-
-    return (
-      <RankingsListView
-        rankings={data ? data.rankings.data : []}
-        pageInfo={data ? data.rankings.pageInfo : {}}
-        onLoadMore={() => fetchMore({
-          variables: {
-            offset: offset + first,
-          },
-          updateQuery: this.updateQuery,
-        })}
-      />
-    )
-  }
-
-  updateQuery = (previousResult, result) => {
-    const {
-      fetchMoreResult,
-    } = result
+  updateQuery = (previousResult, { fetchMoreResult }) => { // eslint-disable-line
     const {
       data,
       pageInfo,
     } = fetchMoreResult.rankings
+    const {
+      data: previousData,
+      pageInfo: previousPageInfo,
+    } = previousResult.rankings
 
-    if (!previousResult.pageInfo.hasNextPage) {
+    if (!previousPageInfo.hasNextPage) {
       return previousResult
     }
 
     return {
-      pageInfo,
-      __typename: previousResult.rankings.__typename,
-      data: [
-        ...previousResult.rankings.data,
-        ...data,
-      ],
+      rankings: {
+        pageInfo,
+        __typename: previousResult.rankings.__typename,
+        data: [
+          ...previousData,
+          ...data,
+        ],
+      },
     }
   }
 
@@ -92,20 +62,16 @@ export default class RankingsList extends React.Component {
     const {
       date,
     } = this.props
-    const {
-      first,
-      offset,
-    } = this.state
 
     return (
       <Query
         query={rankingsQuery}
         variables={{
           date,
-          offset,
-          first,
+          offset: 0,
+          first: 20,
         }}
-        fetchPolicy="cache-and-network"
+        notifyOnNetworkStatusChange
       >
         {this.onResult}
       </Query>

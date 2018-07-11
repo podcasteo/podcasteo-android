@@ -16,9 +16,9 @@ import PodcastContentView from './PodcastContent'
 
 import podcastContentQuery from 'api/podcasts/podcastContent'
 
-class PodcastContent extends React.Component {
+class PodcastContent extends React.PureComponent {
   static propTypes = {
-    podcastId: PropTypes.string.isRequired,
+    podcastSlug: PropTypes.string.isRequired,
   }
 
   onResult = (result) => {
@@ -46,14 +46,14 @@ class PodcastContent extends React.Component {
 
   render() {
     const {
-      podcastId,
+      podcastSlug,
     } = this.props
 
     return (
       <Query
         query={podcastContentQuery}
         variables={{
-          id: podcastId,
+          slug: podcastSlug,
         }}
         fetchPolicy="cache-and-network"
       >

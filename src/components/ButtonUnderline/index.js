@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   },
 })
 
-export default class ButtonUnderline extends React.Component {
+export default class ButtonUnderline extends React.PureComponent {
   static propTypes = {
     onPress: PropTypes.func.isRequired,
     title: PropTypes.string.isRequired,

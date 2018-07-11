@@ -8,16 +8,24 @@ import unknownImage from 'assets/defaults/unknown.png'
 
 export default class ImageBackgroundLoader extends React.Component {
   static propTypes = {
-    defaultSource: PropTypes.number,
-    source: PropTypes.string,
-    style: PropTypes.number,
     children: PropTypes.element.isRequired,
+    placeholderSource: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.object,
+    ]),
+    style: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+      PropTypes.object,
+    ]).isRequired,
+    source: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.object,
+    ]).isRequired,
   }
 
   static defaultProps = {
-    defaultSource: unknownImage,
-    source: null,
-    style: null,
+    placeholderSource: unknownImage,
   }
 
   constructor(props) {
@@ -31,7 +39,7 @@ export default class ImageBackgroundLoader extends React.Component {
 
   render() {
     const {
-      defaultSource,
+      placeholderSource,
       source,
       style,
       children,
@@ -43,9 +51,7 @@ export default class ImageBackgroundLoader extends React.Component {
     } = this.state
     let image = {}
 
-    image = (showDefault || !source) ? defaultSource : {
-      uri: source,
-    }
+    image = (showDefault || !source) ? placeholderSource : source
 
     return (
       <ImageBackground

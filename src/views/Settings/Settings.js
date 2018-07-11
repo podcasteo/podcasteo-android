@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   },
 })
 
-export default class Settings extends React.Component {
+export default class Settings extends React.PureComponent {
   render() {
     return (
       <View style={styles.container}>

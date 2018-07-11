@@ -10,7 +10,7 @@ const LoaderView = styled.View`
   justify-content: center;
 `
 
-export default class Loader extends React.Component {
+export default class Loader extends React.PureComponent {
   render() {
     return (
       <LoaderView>

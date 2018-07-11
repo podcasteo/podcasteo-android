@@ -3,9 +3,9 @@ import {
   Linking,
 } from 'react-native'
 
-function getFacebookURL(data, type) {
+function getFacebookURL(data) {
   return {
-    appURL: `fb://${type === 'podcast' || type === 'group' ? 'page' : 'profile'}/${data}`,
+    appURL: `fb://facewebmodal/f?href=http://facebook.com/${data}`,
     webURL: `http://facebook.com/${data}`,
   }
 }
@@ -19,8 +19,8 @@ function getTwitterURL(data) {
 
 function getItunesURL(data) {
   return {
-    appURL: `itm:${data.split(':')[1]}`,
-    webURL: data,
+    appURL: `itm://itunes.apple.com/fr/podcast/${data}`,
+    webURL: `https://itunes.apple.com/fr/podcast/${data}`,
   }
 }
 

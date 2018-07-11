@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
 export default gql`
-  query podcastContent($id: String) {
-    podcast(id: $id) {
+  query podcastContent($slug: String) {
+    podcast(slug: $slug) {
       id
       members(first: 1) {
         pageInfo {

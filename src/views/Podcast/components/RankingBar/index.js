@@ -5,10 +5,6 @@ import {
   Query,
 } from 'react-apollo'
 import {
-  View,
-  Text,
-} from 'react-native'
-import {
   withRouter,
 } from 'react-router-native'
 
@@ -33,7 +29,6 @@ class RankingBar extends React.Component {
   onResult = (result) => {
     const {
       data,
-      error,
       loading,
     } = result
     let resultData = {
@@ -41,14 +36,6 @@ class RankingBar extends React.Component {
       frequencyScore: -1,
       itunesScore: -1,
       networkScore: -1,
-    }
-
-    if (error) {
-      return (
-        <View>
-          <Text>ERROR</Text>
-        </View>
-      )
     }
 
     if (!loading) {
@@ -75,7 +62,7 @@ class RankingBar extends React.Component {
       <Query
         query={podcastRankingsQuery}
         variables={{
-          id: get(match, 'params.id'),
+          slug: get(match, 'params.slug'),
           first,
           offset,
         }}

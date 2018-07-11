@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
 export default gql`
-  query podcastRankings($id: String, $first: Int, $offset: Int,) {
-    podcast(id: $id) {
+  query podcastRankings($slug: String, $first: Int, $offset: Int,) {
+    podcast(slug: $slug) {
       id
       rankings(first: $first, offset: $offset) {
         data {

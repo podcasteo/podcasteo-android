@@ -2,12 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import Loader from 'components/Loader'
-
 const RankingInformation = styled.View`
   flex-direction: row;
 `
-const RankingBox = styled.View`
+const RankingBox = styled.TouchableOpacity`
   flex: 1;
   padding-top: 20;
   padding-bottom: 10;
@@ -34,65 +32,65 @@ export default class RankingBar extends React.Component {
     ranking: PropTypes.object.isRequired,
   }
 
-  render() {
-    const {
-      ranking,
-    } = this.props
+  constructor(props) {
+    super(props)
 
+    this.state = {
+      audience: false,
+      frequency: false,
+      itunes: false,
+      network: false,
+    }
+  }
+
+  changeRender(type) {
+    const typeState = this.state
+
+    typeState[`${type}`] = !this.state[`${type}`]
+    this.setState(typeState)
+  }
+
+  renderValue(type) {
+    if (this.state[type]) {
+      return this.props.ranking[`${type}Grade`]
+    }
+
+    const value = this.props.ranking[`${type}Score`]
+
+    return value < 1 ? '?' : value
+  }
+
+  render() {
     return (
       <RankingInformation>
-        <RankingBox color="#69E197">
-          {
-            ranking.audienceScore < 0
-            ? <Loader />
-            : (
-              <RankingItemValue>
-                {ranking.audienceScore < -1 || '?'}
-              </RankingItemValue>
-            )
-          }
+        <RankingBox color="#69E197" onPress={() => this.changeRender('audience')}>
+          <RankingItemValue>
+            {this.renderValue('audience')}
+          </RankingItemValue>
           <RankingItemDescription>
             AUDIENCE
           </RankingItemDescription>
         </RankingBox>
-        <RankingBox color="#EE4435">
-          {
-            ranking.audienceScore < 0
-            ? <Loader />
-            : (
-              <RankingItemValue>
-                {ranking.audienceScore < -1 || '?'}
-              </RankingItemValue>
-            )
-          }
+        <RankingBox color="#EE4435" onPress={() => this.changeRender('frequency')}>
+          <RankingItemValue>
+            {this.renderValue('frequency')}
+          </RankingItemValue>
           <RankingItemDescription>
             FREQUENCE
           </RankingItemDescription>
         </RankingBox>
-        <RankingBox color="#F1B82C">
-          {
-            ranking.audienceScore < 0
-            ? <Loader />
-            : (
-              <RankingItemValue>
-                {ranking.audienceScore < -1 || '?'}
-              </RankingItemValue>
-            )
-          }
+        <RankingBox color="#F1B82C" onPress={() => this.changeRender('itunes')}>
+          <RankingItemValue>
+            {this.renderValue('itunes')}
+          </RankingItemValue>
           <RankingItemDescription>
             ITUNES
           </RankingItemDescription>
         </RankingBox>
-        <RankingBox color="#EA672A">
-          {
-            ranking.audienceScore < 0
-            ? <Loader />
-            : (
-              <RankingItemValue>
-                {ranking.audienceScore < -1 || '?'}
-              </RankingItemValue>
-            )
-          }
+        <RankingBox color="#EA672A" onPress={() => this.changeRender('network')}>
+          <RankingItemValue>
+            {this.renderValue('network')}
+          </RankingItemValue>
           <RankingItemDescription>
             RESEAUX
           </RankingItemDescription>

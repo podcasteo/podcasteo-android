@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   },
 })
 
-export default class Podcasts extends React.Component {
+export default class Podcasts extends React.PureComponent {
   render() {
     return (
       <View style={styles.container}>

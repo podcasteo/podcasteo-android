@@ -9,23 +9,22 @@ import { // eslint-disable-line
   FontAwesome,
 } from '@expo/vector-icons'
 
+import PodcastLink from './components/PodcastLink'
+
 import settings from 'helpers/settings'
+import webRadioSingleton from 'helpers/webRadioSingleton'
 
 const WebRadioComponent = styled.View`
-  height: 15%;
-  background-color: blue;
+  height: 100;
 `
 const WebRadioContainer = styled.View`
   flex-direction: row;
   flex: 1;
 `
-const PodcastLink = styled.View`
-  aspect-ratio: 1;
-  background-color: red;
-`
 const RadioComponent = styled.View`
   flex: 1;
-  background-color: green;
+  background-color: gray;
+  opacity: 0.7;
   flex-direction: row;
 `
 const Information = styled.View`
@@ -49,18 +48,21 @@ const Play = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
 `
+const PlayButton = styled.View`
+  aspect-ratio: 1;
+  flex: 1;
+  border-width: 1;
+  border-radius: 100;
+  margin: 20%;
+  justify-content: center;
+  align-items: center;
+`
 
 export default class WebRadio extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      initAudio: true,
-      playing: false,
-      audio: new Audio.Sound(),
-      title: 'unknow...',
-      artist: 'unknow...',
-    }
+    this.state = webRadioSingleton.getInstance()
   }
 
   async componentDidMount() {
@@ -78,13 +80,13 @@ export default class WebRadio extends React.Component {
       const response = await fetch(settings.webradio.nowplaying)
       const responseData = await response.json()
 
-      this.setState({
+      this.setState(webRadioSingleton.updateInstance({
         title: get(responseData, 'now_playing.song.title', 'unknow...'),
         artist: get(responseData, 'now_playing.song.artist', 'unknow...'),
-        podcastSlug: get(responseData, 'now_playing.song.custom_fields.podcast', null), // eslint-disable-line
-      })
+        slug: get(responseData, 'now_playing.song.custom_fields.podcast', null), // eslint-disable-line
+      }))
     } catch (error) {
-      console.log('error', error) // eslint-disable-line
+      // error on metadata
     }
   }
 
@@ -92,7 +94,6 @@ export default class WebRadio extends React.Component {
     const {
       playing,
       initAudio,
-      audio,
     } = this.state
 
     try {
@@ -102,36 +103,40 @@ export default class WebRadio extends React.Component {
             uri: 'https://radio.podcasteo-developer.com/radio/8000/radio.mp3',
           }
 
-          await audio.loadAsync(source)
+          await webRadioSingleton.getInstance().audio.loadAsync(source)
         }
 
-        await audio.playAsync()
+        await webRadioSingleton.getInstance().audio.playAsync()
 
-        this.setState({
+        this.setState(webRadioSingleton.updateInstance({
           playing: true,
           initAudio: false,
-        })
+        }))
       } else {
-        await audio.stopAsync()
+        await webRadioSingleton.getInstance().audio.stopAsync()
 
-        this.setState({
+        this.setState(webRadioSingleton.updateInstance({
           playing: false,
-        })
+        }))
       }
     } catch (error) {
-      this.setState({
+      this.setState(webRadioSingleton.updateInstance({
         playing: false,
         initAudio: true,
         audio: new Audio.Sound(),
-      })
+      }))
     }
   }
 
   render() {
+    const {
+      slug,
+    } = this.state
+
     return (
       <WebRadioComponent>
         <WebRadioContainer>
-          <PodcastLink />
+          <PodcastLink slug={slug} />
           <RadioComponent>
             <Information>
               <Title>
@@ -156,11 +161,13 @@ export default class WebRadio extends React.Component {
               </Artist>
             </Information>
             <Play onPress={this._onPressPlay}>
-              <FontAwesome
-                size={30}
-                name={this.state.playing ? 'pause' : 'play'}
-                color="black"
-              />
+              <PlayButton>
+                <FontAwesome
+                  size={30}
+                  name={this.state.playing ? 'pause' : 'play'}
+                  color="black"
+                />
+              </PlayButton>
             </Play>
           </RadioComponent>
         </WebRadioContainer>

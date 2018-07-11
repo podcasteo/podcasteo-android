@@ -24,6 +24,7 @@ export default gql`
         podcast {
           id
           name
+          slug
           avatar
         }
       }

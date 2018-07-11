@@ -14,11 +14,11 @@ const styles = StyleSheet.create({
   },
 })
 
-export default class Users extends React.Component {
+export default class Profile extends React.PureComponent {
   render() {
     return (
       <View style={styles.container}>
-        <Text>This is Users</Text>
+        <Text>This is Profile</Text>
       </View>
     )
   }

@@ -1,26 +1,26 @@
 import React from 'react'
-import {
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native'
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F3F3F3',
-  },
-})
+import styled from 'styled-components'
 
 import WebRadio from './components/WebRadio'
+import PodcastsPodcasteo from './components/PodcastsPodcasteo'
+import PodcastsRanking from './components/PodcastsRanking'
+import PodcastsWomen from './components/PodcastsWomen'
 
-export default class Dashboard extends React.Component {
+const DashboardContainer = styled.View`
+flex: 1;
+flex-direction: column;
+background-color: #F3F3F3;
+`
+
+export default class Dashboard extends React.PureComponent {
   render() {
     return (
-      <View style={styles.container}>
-        <WebRadio />
-        <Text>This is Dashboard</Text>
-      </View>
+      <DashboardContainer>
+        <WebRadio key="WebRadio" />
+        <PodcastsRanking key="PodcastsRanking" />
+        <PodcastsWomen key="PodcastsWomen" />
+        <PodcastsPodcasteo key="PodcastsPodcasteo" />
+      </DashboardContainer>
     )
   }
 }

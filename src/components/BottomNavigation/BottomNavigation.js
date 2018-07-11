@@ -39,10 +39,10 @@ const navigations = [
   {
     key: 'user',
     icon: 'user-circle',
-    label: 'Users',
+    label: 'Profile',
     barColor: '#E0E0E0',
     pressColor: 'rgba(0, 0, 0, 0.16)',
-    path: '/app/users',
+    path: '/app/profile',
   },
   {
     key: 'settings',
@@ -109,9 +109,11 @@ export default class BottomNavigationView extends React.Component {
   }
 
   updateTab = (newTab) => {
-    this.setState({
-      activeTab: newTab.key, // eslint-disable-line
-    })
+    if (newTab && newTab.key) {
+      this.setState({
+        activeTab: newTab.key, // eslint-disable-line
+      })
+    }
   }
 
   renderIcon = (icon) => (item) => {

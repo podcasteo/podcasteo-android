@@ -10,7 +10,6 @@ import defaultPodcastImage from 'assets/defaults/podcast.png'
 import ImageLoader from 'components/ImageLoader'
 
 const Screen = styled.TouchableOpacity`
-  flex: 1;
   flex-direction: row;
   box-shadow: -5px 5px 10px black;
   margin: 10px;
@@ -67,7 +66,7 @@ const styles = StyleSheet.create({
   },
 })
 
-export default class RankingItem extends React.Component {
+export default class RankingItem extends React.PureComponent {
   static propTypes = {
     history: PropTypes.object.isRequired,
     podcast: PropTypes.object.isRequired,
@@ -85,7 +84,7 @@ export default class RankingItem extends React.Component {
       podcast,
     } = this.props
 
-    history.push(`/app/podcasts/${podcast.id}`)
+    history.push(`/app/podcasts/${podcast.slug}`)
   }
 
   getRankingProgression = () => {
@@ -135,8 +134,10 @@ export default class RankingItem extends React.Component {
         </Rank>
         <ImageLoader
           style={styles.avatar}
-          source={podcast.avatar}
-          defaultSource={defaultPodcastImage}
+          source={{
+            uri: podcast.avatar,
+          }}
+          placeholderSource={defaultPodcastImage}
         />
         <Title>{podcast.name}</Title>
         {this.getRankingProgression()}

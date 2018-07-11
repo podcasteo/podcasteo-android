@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   },
 })
 
-export default class PodcastHeader extends React.Component {
+export default class PodcastHeader extends React.PureComponent {
   static propTypes = {
     loading: PropTypes.bool,
     podcast: PropTypes.object,
@@ -90,8 +90,10 @@ export default class PodcastHeader extends React.Component {
       <Cover>
         <ImageBackgroundLoader
           style={styles.background}
-          source={podcast.avatar}
-          defaultSource={defaultPodcastImage}
+          source={{
+            uri: podcast.avatar,
+          }}
+          placeholderSource={defaultPodcastImage}
           blurRadius={5}
           opacity={0.7}
         >
@@ -109,8 +111,10 @@ export default class PodcastHeader extends React.Component {
                 </IconButton>
                 <ImageLoader
                   style={styles.avatar}
-                  source={podcast.avatar}
-                  defaultSource={defaultPodcastImage}
+                  source={{
+                    uri: podcast.avatar,
+                  }}
+                  placeholderSource={defaultPodcastImage}
                 />
                 <IconButton
                   onPress={this.onPressMember}

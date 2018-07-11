@@ -16,7 +16,7 @@ import PodcastView from './Podcast'
 
 import podcastQuery from 'api/podcasts/podcast'
 
-class Podcast extends React.Component {
+class Podcast extends React.PureComponent {
   static propTypes = {
     match: PropTypes.object.isRequired,
   }
@@ -30,7 +30,7 @@ class Podcast extends React.Component {
     const {
       match,
     } = this.props
-    const id = get(match, 'params.id')
+    const slug = get(match, 'params.slug')
 
     if (error) {
       return (
@@ -43,7 +43,7 @@ class Podcast extends React.Component {
     return (
       <PodcastView
         podcast={get(data, 'podcast', {
-          id,
+          slug,
         })}
         loading={loading}
       />
@@ -59,7 +59,7 @@ class Podcast extends React.Component {
       <Query
         query={podcastQuery}
         variables={{
-          id: get(match, 'params.id'),
+          slug: get(match, 'params.slug'),
         }}
         fetchPolicy="cache-and-network"
       >

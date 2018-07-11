@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   },
 })
 
-export default class Podcast extends React.Component {
+export default class Podcast extends React.PureComponent {
   static propTypes = {
     loading: PropTypes.bool,
     podcast: PropTypes.object.isRequired,
@@ -36,7 +36,7 @@ export default class Podcast extends React.Component {
       <View style={styles.container}>
         <PodcastHeader loading={loading} podcast={podcast} />
         <RankingBar />
-        <PodcastContent podcastId={podcast.id} />
+        <PodcastContent podcastSlug={podcast.slug} />
       </View>
     )
   }

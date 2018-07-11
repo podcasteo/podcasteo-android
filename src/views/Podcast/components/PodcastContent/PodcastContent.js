@@ -63,14 +63,13 @@ const CircleText = styled.Text`
 `
 const styles = StyleSheet.create({
   userAvatar: {
-    flex: 1,
-    alignSelf: 'stretch',
-    aspectRatio: 1,
+    height: 50,
+    width: 50,
     borderRadius: 100,
   },
 })
 
-export default class PodcastContent extends React.Component {
+export default class PodcastContent extends React.PureComponent {
   static propTypes = {
     loading: PropTypes.bool.isRequired,
     podcast: PropTypes.object.isRequired,
@@ -120,8 +119,10 @@ export default class PodcastContent extends React.Component {
           <ImageLoader
             resizeMode="cover"
             style={styles.userAvatar}
-            source={memberAvatar}
-            defaultSource={defaultUserImage}
+            source={{
+              uri: memberAvatar,
+            }}
+            placeholderSource={defaultUserImage}
           />
         </TouchCircle>
       )
@@ -168,8 +169,10 @@ export default class PodcastContent extends React.Component {
           <ImageLoader
             resizeMode="cover"
             style={styles.userAvatar}
-            source={likeAvatar}
-            defaultSource={defaultUserImage}
+            source={{
+              uri: likeAvatar,
+            }}
+            placeholderSource={defaultUserImage}
           />
         </TouchCircle>
       )
@@ -262,7 +265,7 @@ export default class PodcastContent extends React.Component {
           <ImageLoader
             resizeMode="cover"
             style={styles.userAvatar}
-            defaultSource={facebookImage}
+            source={facebookImage}
           />
         </TouchCircle>)
     }
@@ -273,7 +276,7 @@ export default class PodcastContent extends React.Component {
           <ImageLoader
             resizeMode="cover"
             style={styles.userAvatar}
-            defaultSource={twitterImage}
+            source={twitterImage}
           />
         </TouchCircle>)
     }
@@ -284,7 +287,7 @@ export default class PodcastContent extends React.Component {
           <ImageLoader
             resizeMode="cover"
             style={styles.userAvatar}
-            defaultSource={soundcloudImage}
+            source={soundcloudImage}
           />
         </TouchCircle>)
     }
@@ -295,7 +298,7 @@ export default class PodcastContent extends React.Component {
           <ImageLoader
             resizeMode="cover"
             style={styles.userAvatar}
-            defaultSource={itunesImage}
+            source={itunesImage}
           />
         </TouchCircle>)
     }
