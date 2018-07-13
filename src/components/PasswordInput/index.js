@@ -61,8 +61,9 @@ export default class PasswordInputText extends React.Component {
     return (
       <View>
         <Input
-          {...this.props}
+          ref={this.props.inputRef} // eslint-disable-line
           secureTextEntry={this.state.password}
+          {...this.props}
         />
         <MaterialIcons
           style={styles.icon}

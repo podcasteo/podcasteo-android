@@ -2,17 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import get from 'lodash/get'
+import AwesomeButton from 'react-native-really-awesome-button'
 import {
   AsyncStorage,
   StyleSheet,
 } from 'react-native'
-import {
-  Input,
-  Button,
-} from 'react-native-elements'
 import { // eslint-disable-line
   FontAwesome,
 } from '@expo/vector-icons'
+import {
+  Input,
+} from 'react-native-elements'
 
 import settings from 'helpers/settings'
 import validateEmail from 'helpers/validateEmail'
@@ -40,8 +40,13 @@ const InputLine = styled.View`
 `
 const Error = styled.Text`
   margin-left: 10;
+  margin-bottom: 10;
   font-weight: bold;
   color: red;
+`
+const ButtonContainer = styled.View`
+  justify-content: center;
+  align-items: center;
 `
 const styles = StyleSheet.create({
   input: {
@@ -141,6 +146,9 @@ export default class SignIn extends React.Component {
                 value={this.state.email}
                 keyboardType="email-address"
                 autoCapitalize="none"
+                onSubmitEditing={() => {
+                  this.passwordInput.focus()
+                }}
               />
             </InputLine>
             <InputLine>
@@ -150,6 +158,9 @@ export default class SignIn extends React.Component {
                 color="gray"
               />
               <PasswordInput
+                inputRef={(passwordInput) => {
+                  this.passwordInput = passwordInput
+                }}
                 onChangeText={(password) => this.setState({
                  password,
                 })}
@@ -162,19 +173,20 @@ export default class SignIn extends React.Component {
           </Formulaire>
         </Scroll>
         <Error>{this.state.error}</Error>
-        <Button
-          onPress={this.onLogin}
-          text="Connexion"
-          buttonStyle={{
-              backgroundColor: 'red',
-              width: 200,
-              height: 45,
-              borderColor: 'transparent',
-              borderWidth: 0,
-              borderRadius: 5,
+        <ButtonContainer>
+          <AwesomeButton
+            progress
+            onPress={async (next) => {
+              await this.onLogin()
+              next()
             }}
-          loading={this.state.isLoading}
-        />
+            backgroundColor="#FF4242"
+            backgroundDarker="#B62828"
+            disabled={this.state.isLoading}
+          >
+            Connexion
+          </AwesomeButton>
+        </ButtonContainer>
       </Screen>
     )
   }

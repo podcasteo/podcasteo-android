@@ -8,9 +8,7 @@ import {
 import {
   AsyncStorage,
 } from 'react-native'
-import {
-  Button,
-} from 'react-native-elements'
+import AwesomeButton from 'react-native-really-awesome-button/src/themes/blue'
 
 import logo from 'assets/icons/logo.png'
 import settings from 'helpers/settings'
@@ -148,19 +146,16 @@ export default class Login extends React.Component {
         <Bottom>
           <ErrorText>{this.state.error}</ErrorText>
           <TabButtonRow>
-            <Button
-              onPress={this.onFacebookLogin}
-              text="Facebook Login"
-              buttonStyle={{
-                  backgroundColor: 'blue',
-                  width: 200,
-                  height: 45,
-                  borderColor: 'transparent',
-                  borderWidth: 0,
-                  borderRadius: 5,
-                }}
-              loading={this.state.isLoading}
-            />
+            <AwesomeButton
+              progress
+              onPress={async (next) => {
+                await this.onFacebookLogin()
+                next()
+              }}
+              disabled={this.state.isLoading}
+            >
+              Facebook Login
+            </AwesomeButton>
           </TabButtonRow>
         </Bottom>
       </Screen>

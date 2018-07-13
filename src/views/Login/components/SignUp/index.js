@@ -2,17 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import get from 'lodash/get'
+import AwesomeButton from 'react-native-really-awesome-button'
 import {
   AsyncStorage,
   StyleSheet,
 } from 'react-native'
-import {
-  Input,
-  Button,
-} from 'react-native-elements'
 import { // eslint-disable-line
   FontAwesome,
 } from '@expo/vector-icons'
+import {
+  Input,
+} from 'react-native-elements'
 
 import settings from 'helpers/settings'
 import validateEmail from 'helpers/validateEmail'
@@ -22,7 +22,7 @@ const Screen = styled.KeyboardAvoidingView`
   flex: 1;
 `
 const Scroll = styled.ScrollView`
-  flex: 1;
+  height: 500;
 `
 const Formulaire = styled.View`
   margin-top: 20;
@@ -40,6 +40,10 @@ const ErrorText = styled.Text`
   margin-left: 10;
   font-weight: bold;
   color: red;
+`
+const ButtonContainer = styled.View`
+  justify-content: center;
+  align-items: center;
 `
 const styles = StyleSheet.create({
   input: {
@@ -158,6 +162,9 @@ export default class SignUp extends React.Component {
                 placeholder="Username"
                 value={this.state.username}
                 autoCapitalize="none"
+                onSubmitEditing={() => {
+                  this.emailInput.focus()
+                }}
               />
             </InputLine>
             <InputLine>
@@ -167,6 +174,9 @@ export default class SignUp extends React.Component {
                 color="gray"
               />
               <Input
+                ref={(emailInput) => {
+                  this.emailInput = emailInput
+                }}
                 containerStyle={styles.input}
                 onChangeText={(email) => this.setState({
                   email,
@@ -175,6 +185,9 @@ export default class SignUp extends React.Component {
                 value={this.state.email}
                 keyboardType="email-address"
                 autoCapitalize="none"
+                onSubmitEditing={() => {
+                  this.passwordInput.focus()
+                }}
               />
             </InputLine>
             <InputLine>
@@ -184,6 +197,9 @@ export default class SignUp extends React.Component {
                 color="gray"
               />
               <PasswordInput
+                inputRef={(passwordInput) => {
+                  this.passwordInput = passwordInput
+                }}
                 onChangeText={(password) => this.setState({
                  password,
                 })}
@@ -191,6 +207,9 @@ export default class SignUp extends React.Component {
                 value={this.state.password}
                 autoCorrect={false}
                 autoCapitalize="none"
+                onSubmitEditing={() => {
+                  this.confirmPasswordInput.focus()
+                }}
               />
             </InputLine>
             <InputLine>
@@ -200,6 +219,9 @@ export default class SignUp extends React.Component {
                 color="gray"
               />
               <PasswordInput
+                inputRef={(confirmPasswordInput) => {
+                  this.confirmPasswordInput = confirmPasswordInput
+                }}
                 onChangeText={(confirmPassword) => this.setState({
                  confirmPassword,
                 })}
@@ -212,23 +234,20 @@ export default class SignUp extends React.Component {
           </Formulaire>
         </Scroll>
         <ErrorText>{this.state.error}</ErrorText>
-        <Button
-          onPress={this.onSignUp}
-          containerStyle={{
-              flex: 0,
-              paddingBottom: 10,
+        <ButtonContainer>
+          <AwesomeButton
+            progress
+            backgroundColor="#FF4242"
+            backgroundDarker="#B62828"
+            onPress={async (next) => {
+              await this.onSignUp()
+              next()
             }}
-          text="Inscription"
-          buttonStyle={{
-              backgroundColor: 'red',
-              width: 200,
-              height: 45,
-              borderColor: 'transparent',
-              borderWidth: 0,
-              borderRadius: 5,
-            }}
-          loading={this.state.isLoading}
-        />
+            disabled={this.state.isLoading}
+          >
+            Inscription
+          </AwesomeButton>
+        </ButtonContainer>
       </Screen>
     )
   }
