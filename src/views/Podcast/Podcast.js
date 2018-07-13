@@ -36,7 +36,7 @@ export default class Podcast extends React.PureComponent {
       <View style={styles.container}>
         <PodcastHeader loading={loading} podcast={podcast} />
         <RankingBar />
-        <PodcastContent podcastSlug={podcast.slug} />
+        <PodcastContent slug={podcast.slug} />
       </View>
     )
   }

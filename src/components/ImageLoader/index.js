@@ -115,16 +115,15 @@ export default class ImageLoader extends React.Component {
       >
         <Animated.Image
           source={source}
-          resizeMode="contain"
           style={[
             style,
             {
               opacity: imageOpacity,
               position: 'absolute',
-              resizeMode: 'contain',
             },
           ]}
           onLoad={this._onLoad}
+          resizeMode="cover"
           {...otherProps}
         />
 
@@ -139,6 +138,7 @@ export default class ImageLoader extends React.Component {
                 position: 'absolute',
               },
             ]}
+            resizeMode="cover"
             {...otherProps}
           />
         }

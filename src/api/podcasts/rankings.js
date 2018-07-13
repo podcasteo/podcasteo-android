@@ -5,7 +5,9 @@ export default gql`
     rankings(first: $first, offset: $offset, date: $date) {
       pageInfo {
         totalCount
+        pageCount
         hasNextPage
+        hasPreviousPage
       }
       data {
         id

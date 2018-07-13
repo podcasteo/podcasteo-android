@@ -7,30 +7,40 @@ import {
 import RankingsListView from './RankingsList'
 
 import rankingsQuery from 'api/podcasts/rankings'
+import ErrorView from 'components/ErrorView'
 
 export default class RankingsList extends React.PureComponent {
   static propTypes = {
     date: PropTypes.string.isRequired,
   }
 
-  onResult = ({
-    data,
-    fetchMore,
-    networkStatus,
-    refetch,
-  }) => (
-    <RankingsListView
-      networkStatus={networkStatus}
-      rankings={data.rankings}
-      refetch={refetch}
-      onLoadMore={() => fetchMore({
-        variables: {
-          offset: data.rankings.data.length,
-        },
-        updateQuery: this.updateQuery,
-      })}
-    />
-  )
+  onResult = (result) => {
+    const {
+      data,
+      error,
+      fetchMore,
+      networkStatus,
+      refetch,
+    } = result
+
+    if (error) {
+      return <ErrorView error={error} />
+    }
+
+    return (
+      <RankingsListView
+        networkStatus={networkStatus}
+        rankings={data.rankings}
+        refetch={refetch}
+        onLoadMore={() => fetchMore({
+          variables: {
+            offset: data.rankings.data.length,
+          },
+          updateQuery: this.updateQuery,
+        })}
+      />
+    )
+  }
 
   updateQuery = (previousResult, { fetchMoreResult }) => { // eslint-disable-line
     const {

@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {
+  Alert,
   StyleSheet,
 } from 'react-native'
 import { // eslint-disable-line
@@ -13,7 +14,7 @@ import ImageBackgroundLoader from 'components/ImageBackgroundLoader'
 import ImageLoader from 'components/ImageLoader'
 
 const Cover = styled.View`
-  flex: 1;
+  height: 40%;
 `
 const BackgroundContainer = styled.View`
   flex: 2;
@@ -73,6 +74,8 @@ export default class PodcastHeader extends React.PureComponent {
   static propTypes = {
     loading: PropTypes.bool,
     podcast: PropTypes.object,
+    likePodcast: PropTypes.func.isRequired,
+    dislikePodcast: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -80,62 +83,118 @@ export default class PodcastHeader extends React.PureComponent {
     podcast: {},
   }
 
-  render() {
+  onPressLike = () => {
     const {
-      loading,
       podcast,
     } = this.props
 
-    return (
-      <Cover>
-        <ImageBackgroundLoader
-          style={styles.background}
-          source={{
-            uri: podcast.avatar,
-          }}
-          placeholderSource={defaultPodcastImage}
-          blurRadius={5}
-          opacity={0.7}
-        >
-          <BackgroundContainer>
-            <HeaderContainer>
-              <ImageRow>
-                <IconButton
-                  onPress={this.onPressMember}
-                >
-                  <FontAwesome
-                    size={10}
-                    color={podcast.isMember ? 'black' : 'white'}
-                    name={podcast.isMember ? 'user-times' : 'user-plus'}
-                  />
-                </IconButton>
-                <ImageLoader
-                  style={styles.avatar}
-                  source={{
-                    uri: podcast.avatar,
-                  }}
-                  placeholderSource={defaultPodcastImage}
-                />
-                <IconButton
-                  onPress={this.onPressMember}
-                >
-                  <FontAwesome
-                    size={10}
-                    color={podcast.isFollow ? 'black' : 'white'}
-                    name="bookmark"
-                  />
-                </IconButton>
-              </ImageRow>
-              <Title>{loading ? '...' : podcast.name.toUpperCase()}</Title>
-            </HeaderContainer>
-            <DescriptionContainer>
-              <Description>
-                {podcast.description}
-              </Description>
-            </DescriptionContainer>
-          </BackgroundContainer>
-        </ImageBackgroundLoader>
-      </Cover>
+    Alert.alert(
+      'Abonnement',
+      podcast.isLike ? `Se désabonner de ${podcast.name} ?` : `Suivre ${podcast.name} ?`,
+      [
+        {
+          text: 'Non', onPress: () => {}, style: 'cancel',
+        },
+        {
+          text: 'Oui',
+          onPress: () => this._likePodcast(),
+        },
+      ],
+      {
+        cancelable: false,
+      },
     )
   }
+
+    _likePodcast = async () => {
+      const {
+        podcast,
+        likePodcast,
+        dislikePodcast,
+      } = this.props
+
+      try {
+        if (podcast.isLike) {
+          await dislikePodcast(podcast.id)
+        } else {
+          await likePodcast(podcast.id)
+        }
+      } catch (error) {
+        Alert.alert(
+          `Suivre ${podcast.name}`,
+          `Error: ${error.message}`,
+          [
+            {
+              text: 'Cancel', onPress: () => {}, style: 'cancel',
+            },
+            {
+              text: 'Close',
+              onPress: () => {},
+            },
+          ],
+          {
+            cancelable: true,
+          },
+        )
+      }
+    }
+
+    render() {
+      const {
+        loading,
+        podcast,
+      } = this.props
+
+      return (
+        <Cover>
+          <ImageBackgroundLoader
+            style={styles.background}
+            source={{
+            uri: podcast.avatar,
+          }}
+            placeholderSource={defaultPodcastImage}
+            blurRadius={5}
+            opacity={0.7}
+          >
+            <BackgroundContainer>
+              <HeaderContainer>
+                <ImageRow>
+                  <IconButton
+                    onPress={this.onPressMember}
+                  >
+                    <FontAwesome
+                      size={10}
+                      color={podcast.isMember ? 'black' : 'white'}
+                      name={podcast.isMember ? 'user-times' : 'user-plus'}
+                    />
+                  </IconButton>
+                  <ImageLoader
+                    style={styles.avatar}
+                    source={{
+                    uri: podcast.avatar,
+                  }}
+                    placeholderSource={defaultPodcastImage}
+                  />
+                  <IconButton
+                    onPress={this.onPressLike}
+                  >
+                    <FontAwesome
+                      size={10}
+                      color={podcast.isLike ? 'red' : 'white'}
+                      name="heart"
+                    />
+                  </IconButton>
+                </ImageRow>
+                <Title>{loading ? '...' : podcast.name.toUpperCase()}</Title>
+              </HeaderContainer>
+              <DescriptionContainer>
+                <Description>
+                  {podcast.description}
+                </Description>
+              </DescriptionContainer>
+            </BackgroundContainer>
+          </ImageBackgroundLoader>
+        </Cover>
+      )
+    }
 }

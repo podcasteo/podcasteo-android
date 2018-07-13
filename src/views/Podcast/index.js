@@ -5,15 +5,12 @@ import {
   Query,
 } from 'react-apollo'
 import {
-  View,
-  Text,
-} from 'react-native'
-import {
   withRouter,
 } from 'react-router-native'
 
 import PodcastView from './Podcast'
 
+import ErrorView from 'components/ErrorView'
 import podcastQuery from 'api/podcasts/podcast'
 
 class Podcast extends React.PureComponent {
@@ -33,11 +30,7 @@ class Podcast extends React.PureComponent {
     const slug = get(match, 'params.slug')
 
     if (error) {
-      return (
-        <View>
-          <Text>ERROR</Text>
-        </View>
-      )
+      return <ErrorView error={error} />
     }
 
     return (

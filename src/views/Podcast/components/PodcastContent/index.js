@@ -4,13 +4,6 @@ import get from 'lodash/get'
 import {
   Query,
 } from 'react-apollo'
-import {
-  View,
-  Text,
-} from 'react-native'
-import {
-  withRouter,
-} from 'react-router-native'
 
 import PodcastContentView from './PodcastContent'
 
@@ -18,42 +11,36 @@ import podcastContentQuery from 'api/podcasts/podcastContent'
 
 class PodcastContent extends React.PureComponent {
   static propTypes = {
-    podcastSlug: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
   }
 
   onResult = (result) => {
     const {
       data,
-      error,
-      loading,
     } = result
-
-    if (error) {
-      return (
-        <View>
-          <Text>ERROR</Text>
-        </View>
-      )
-    }
+    const {
+      slug,
+    } = this.props
 
     return (
       <PodcastContentView
-        podcast={get(data, 'podcast', {})}
-        loading={loading}
+        podcast={get(data, 'podcast', {
+          slug,
+        })}
       />
     )
   }
 
   render() {
     const {
-      podcastSlug,
+      slug,
     } = this.props
 
     return (
       <Query
         query={podcastContentQuery}
         variables={{
-          slug: podcastSlug,
+          slug,
         }}
         fetchPolicy="cache-and-network"
       >
@@ -62,5 +49,5 @@ class PodcastContent extends React.PureComponent {
     )
   }
 }
-@withRouter
+
 export default class extends PodcastContent {}

@@ -2,7 +2,7 @@ import {
   withRouter,
 } from 'react-router-native'
 
-import PodcastItemView from './PodcastItem'
+import PodcastItem from './PodcastItem'
 
 @withRouter
-export default class extends PodcastItemView {}
+export default class extends PodcastItem {}

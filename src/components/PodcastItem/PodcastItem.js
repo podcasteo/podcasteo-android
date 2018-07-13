@@ -19,6 +19,10 @@ const Name = styled.Text`
   color: white;
 `
 const styles = StyleSheet.create({
+  container: {
+    height: 80,
+    width: 100,
+  },
   avatar: {
     height: 80,
     width: 100,

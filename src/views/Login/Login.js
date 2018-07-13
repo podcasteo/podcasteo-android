@@ -92,7 +92,7 @@ export default class Login extends React.Component {
           email: data.email,
           firstname: data.first_name,
           lastname: data.last_name,
-          username: data.short_name,
+          username: `${data.first_name}${data.last_name}`,
           facebookAvatar: data.picture.data.url,
         })
 
