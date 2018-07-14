@@ -85,7 +85,7 @@ export default class UserLikes extends React.PureComponent {
               />
             ) : (
               <SubText>
-                Aucun utilisateur... :(
+                Aucun utilisateur
               </SubText>
             )
           }

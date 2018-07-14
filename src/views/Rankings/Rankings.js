@@ -1,20 +1,19 @@
 import React from 'react'
 import styled from 'styled-components'
-import {
-  StyleSheet,
-  View,
-} from 'react-native'
 
 import RankingsList from './components/RankingsList'
 
 import MonthPicker from 'components/MonthPicker'
+import CustomHeader from 'components/CustomHeader'
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F3F3F3',
-  },
-})
+const Screen = styled.View`
+  flex: 1;
+`
+const HeaderContainer = styled.View`
+  background-color: white;
+  boxShadow: -5px 5px 10px black;
+  elevation: 5;
+`
 const Header = styled.View`
   padding-left: 5;
   margin-left: 10;
@@ -25,6 +24,7 @@ const Header = styled.View`
   border-left-width: 2;
   border-left-color: red;
   align-items: baseline;
+  background-color: white;
 `
 const Title = styled.Text`
   font-size: 20;
@@ -49,13 +49,16 @@ export default class Rankings extends React.Component {
     } = this.state
 
     return (
-      <View style={styles.container}>
-        <Header>
-          <Title>CLASSEMENT</Title>
-          <MonthPicker onSelect={this._selectDate} />
-        </Header>
+      <Screen>
+        <HeaderContainer>
+          <CustomHeader />
+          <Header>
+            <Title>CLASSEMENT</Title>
+            <MonthPicker onSelect={this._selectDate} />
+          </Header>
+        </HeaderContainer>
         <RankingsList date={date} />
-      </View>
+      </Screen>
     )
   }
 }

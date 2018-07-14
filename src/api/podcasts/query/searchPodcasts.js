@@ -2,7 +2,7 @@ import gql from 'graphql-tag'
 
 export default gql`
   query searchPodcasts($name: String, $first: Int) {
-    users(name: $name, first: $first) {
+    podcasts(name: $name, first: $first) {
       pageInfo {
         totalCount
         pageCount

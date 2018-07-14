@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import PropType from 'prop-types'
 import styled from 'styled-components'
 import get from 'lodash/get'
 import {
@@ -9,19 +9,33 @@ import { // eslint-disable-line
   FontAwesome,
 } from '@expo/vector-icons'
 
-import RankingItem from './components/RankingItem'
-
+import UserItemHorizontal from 'components/UserItemHorizontal'
 import Loader from 'components/Loader'
 
-const Screen = styled.View`
-  flex: 1;
+const Container = styled.View``
+const Title = styled.Text`
+  font-size: 18;
+  margin-bottom: 5;
+  color: darkgray;
 `
 const SubText = styled.Text`
+  margin-top: 10;
+  margin-bottom: 20;
   font-size: 14px;
   margin-left: 5%;
 `
+const Separator = styled.View`
+  height: 1;
+  background-color: #CED0CE;
+  margin-top: 3%;
+  margin-bottom: 3%;
+  margin-right: 10%;
+`
 const Footer = styled.View`
-  padding-top: 20;
+  margin-top: 3%;
+  margin-bottom: 3%;
+  margin-right: 10%;
+  padding-top: 10;
   padding-bottom: 20;
   border-top-width: 1;
   border-color: #CED0CE;
@@ -29,31 +43,13 @@ const Footer = styled.View`
   align-items: center;
 `
 
-export default class RankingsList extends React.PureComponent {
+export default class SearchUsers extends React.PureComponent {
   static propTypes = {
-    data: PropTypes.object,
-    networkStatus: PropTypes.number.isRequired,
-    refetch: PropTypes.func.isRequired,
-    onLoadMore: PropTypes.func.isRequired,
+    data: PropType.object,
+    networkStatus: PropType.number.isRequired,
   }
-
   static defaultProps = {
     data: null,
-  }
-
-  _onLoadMore = () => {
-    const {
-      onLoadMore,
-      data,
-      networkStatus,
-    } = this.props
-    const pageInfo = get(data, 'pageInfo', {})
-
-    if (!pageInfo.hasNextPage || networkStatus === 3 || networkStatus === 4 || networkStatus === 1) {
-      return
-    }
-
-    onLoadMore()
   }
 
   _renderFooter = () => {
@@ -82,41 +78,35 @@ export default class RankingsList extends React.PureComponent {
     const {
       data,
       networkStatus,
-      refetch,
     } = this.props
-    const rankings = get(data, 'data', [])
+    const dataUsers = get(data, 'data', [])
 
     return (
-      <Screen>
+      <Container>
+        <Title>Utilisateur</Title>
         {
-          rankings.length === 0 && networkStatus === 7 ? (
+          dataUsers.length === 0 && networkStatus === 7 ? (
             <SubText>
-              Aucun Podcast
+              Aucun Utilisateur
             </SubText>
           ) : (
             <FlatList
-              data={rankings.map((item) => ({
+              data={dataUsers.map((item) => ({
                 ...item,
                 key: item.id,
               }))}
-              refreshing={networkStatus === 4}
-              onRefresh={refetch}
-              initialNumToRender={7}
-              onEndReachedThreshold={0.7}
-              onEndReached={this._onLoadMore}
               renderItem={({ item }) => ( //eslint-disable-line
-                <RankingItem
-                  ranking={item.data}
-                  podcast={item.podcast}
-                  previous={item.previous}
+                <UserItemHorizontal
+                  user={item}
                   key={item.id}
                 />
               )}
+              ItemSeparatorComponent={Separator}
               ListFooterComponent={this._renderFooter}
             />
           )
         }
-      </Screen>
+      </Container>
     )
   }
 }

@@ -4,13 +4,18 @@ import get from 'lodash/get'
 import {
   Query,
 } from 'react-apollo'
+import {
+  withRouter,
+} from 'react-router-native'
 
-import PodcastItem from 'components/PodcastItem'
+import PodcastLinkView from './PodcastLinkView'
+
 import podcastQuery from 'api/podcasts/query/podcast'
 
-export default class PodcastLink extends React.PureComponent {
+class PodcastLink extends React.PureComponent {
   static propTypes = {
     slug: PropTypes.string,
+    history: PropTypes.object.isRequired,
   }
 
   static defaultProps = {
@@ -21,9 +26,13 @@ export default class PodcastLink extends React.PureComponent {
     const {
       data,
     } = result
+    const {
+      history,
+    } = this.props
 
     return (
-      <PodcastItem
+      <PodcastLinkView
+        history={history}
         podcast={get(data, 'podcast')}
       />
     )
@@ -34,19 +43,24 @@ export default class PodcastLink extends React.PureComponent {
       slug,
     } = this.props
 
-    return (!slug
-      ?
-        <PodcastItem />
-      :
-        <Query
-          query={podcastQuery}
-          variables={{
-              slug,
-            }}
-          fetchPolicy="cache-first"
-        >
-          {this.onResult}
-        </Query>
+    return !slug ? (
+      <PodcastLinkView
+        history={{}}
+        podcast={null}
+      />
+    ) : (
+      <Query
+        query={podcastQuery}
+        variables={{
+          slug,
+        }}
+        fetchPolicy="cache-first"
+      >
+        {this.onResult}
+      </Query>
     )
   }
 }
+
+@withRouter
+export default class extends PodcastLink {}

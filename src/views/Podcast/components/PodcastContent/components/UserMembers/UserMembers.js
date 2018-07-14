@@ -85,7 +85,7 @@ export default class UserMembers extends React.PureComponent {
               />
             ) : (
               <SubText>
-                Aucun utilisateur... :(
+                Aucun utilisateur
               </SubText>
             )
           }

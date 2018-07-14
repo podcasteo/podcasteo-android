@@ -30,7 +30,7 @@ export default class RankingsList extends React.PureComponent {
     return (
       <RankingsListView
         networkStatus={networkStatus}
-        rankings={data.rankings}
+        data={data.rankings}
         refetch={refetch}
         onLoadMore={() => fetchMore({
           variables: {

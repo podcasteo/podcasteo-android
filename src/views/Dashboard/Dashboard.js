@@ -6,6 +6,8 @@ import PodcastsPodcasteo from './components/PodcastsPodcasteo'
 import PodcastsRanking from './components/PodcastsRanking'
 import PodcastsWomen from './components/PodcastsWomen'
 
+import CustomHeader from 'components/CustomHeader'
+
 const DashboardContainer = styled.View`
 flex: 1;
 flex-direction: column;
@@ -17,8 +19,9 @@ export default class Dashboard extends React.PureComponent {
   render() {
     return (
       <DashboardContainer>
-        <WebRadio key="WebRadio" />
+        <CustomHeader shadow />
         <DashboardContent>
+          <WebRadio key="WebRadio" />
           <PodcastsRanking key="PodcastsRanking" />
           <PodcastsWomen key="PodcastsWomen" />
           <PodcastsPodcasteo key="PodcastsPodcasteo" />

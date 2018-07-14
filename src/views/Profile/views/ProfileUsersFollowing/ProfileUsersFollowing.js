@@ -108,7 +108,7 @@ export default class ProfileUsersFollowing extends React.PureComponent {
         {
           dataFollowing.length === 0 && networkStatus === 7 ? (
             <SubText>
-              Aucun utilisateur... :(
+              Aucun utilisateur
             </SubText>
           ) : (
             <FlatList

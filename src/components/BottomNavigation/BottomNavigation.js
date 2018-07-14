@@ -15,7 +15,7 @@ const navigations = [
   {
     key: 'ranking',
     icon: 'signal',
-    label: 'Allo',
+    label: 'Classement',
     barColor: '#E0E0E0',
     pressColor: 'rgba(0, 0, 0, 0.16)',
     path: '/app/rankings',

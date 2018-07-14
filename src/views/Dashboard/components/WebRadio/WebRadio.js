@@ -15,7 +15,7 @@ import settings from 'helpers/settings'
 import webRadioSingleton from 'helpers/webRadioSingleton'
 
 const WebRadioComponent = styled.View`
-  height: 100;
+  height: 80;
 `
 const WebRadioContainer = styled.View`
   flex-direction: row;
@@ -23,8 +23,7 @@ const WebRadioContainer = styled.View`
 `
 const RadioComponent = styled.View`
   flex: 1;
-  background-color: gray;
-  opacity: 0.7;
+  background-color: #111111B3;
   flex-direction: row;
 `
 const Information = styled.View`
@@ -33,7 +32,8 @@ const Information = styled.View`
 `
 const Title = styled.View`
   flex: 1;
-  justify-content: center;
+  justify-content: flex-start;
+  margin-top: 1%;
   margin-left: 1%;
   margin-right: 1%;
 `
@@ -51,8 +51,6 @@ const Play = styled.TouchableOpacity`
 const PlayButton = styled.View`
   aspect-ratio: 1;
   flex: 1;
-  border-width: 1;
-  border-radius: 100;
   margin: 20%;
   justify-content: center;
   align-items: center;
@@ -139,33 +137,35 @@ export default class WebRadio extends React.Component {
           <PodcastLink slug={slug} />
           <RadioComponent>
             <Information>
-              <Title>
-                <TextTicker
-                  style={{
-                   fontSize: 16,
-                  }}
-                  marqueeDelay={1000}
-                >
-                  {this.state.title}
-                </TextTicker>
-              </Title>
               <Artist>
                 <TextTicker
                   style={{
-                   fontSize: 14,
+                   fontSize: 16,
+                   color: 'white',
                   }}
                   marqueeDelay={1000}
                 >
                   {this.state.artist}
                 </TextTicker>
               </Artist>
+              <Title>
+                <TextTicker
+                  style={{
+                   fontSize: 14,
+                   color: 'white',
+                  }}
+                  marqueeDelay={1000}
+                >
+                  {this.state.title}
+                </TextTicker>
+              </Title>
             </Information>
             <Play onPress={this._onPressPlay}>
               <PlayButton>
                 <FontAwesome
                   size={30}
                   name={this.state.playing ? 'pause' : 'play'}
-                  color="black"
+                  color="white"
                 />
               </PlayButton>
             </Play>

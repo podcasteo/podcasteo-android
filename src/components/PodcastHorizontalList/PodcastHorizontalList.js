@@ -9,12 +9,14 @@ import PodcastItem from 'components/PodcastItem'
 
 const Screen = styled.View`
   flex: 1;
+  height: 150;
   margin-left: 5%;
   margin-top: 5%;
 `
 const Title = styled.Text`
-  font-size: 14px;
-  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 16;
+  margin-bottom: 5;
 `
 const Separator = styled.View`
   margin-right: 5px;

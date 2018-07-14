@@ -123,7 +123,7 @@ export default class SocialNetworks extends React.PureComponent {
               />
             ) : (
               <SubText>
-                Aucun Lien... :(
+                Aucun Lien
               </SubText>
             )
           }

@@ -11,10 +11,10 @@ import ImageLoader from 'components/ImageLoader'
 
 const Screen = styled.TouchableOpacity`
   flex-direction: row;
-  box-shadow: -5px 5px 10px black;
   margin: 10px;
   background: #fff;
-  elevation: 8;
+  boxShadow: -5px 5px 10px black;
+  elevation: 5;
   align-items: center;
 `
 const Rank = styled.Text`

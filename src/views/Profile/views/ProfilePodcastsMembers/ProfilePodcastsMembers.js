@@ -108,7 +108,7 @@ export default class ProfilePodcastsMembers extends React.PureComponent {
         {
           dataMembers.length === 0 && networkStatus === 7 ? (
             <SubText>
-              Aucun Podcast... :(
+              Aucun Podcast
             </SubText>
           ) : (
             <FlatList
