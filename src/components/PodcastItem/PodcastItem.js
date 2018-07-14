@@ -15,7 +15,7 @@ const PodcastItemContainer = styled.TouchableOpacity`
 `
 const Name = styled.Text`
   height: 20;
-  background-color: black;
+  background-color: #111111B3;
   color: white;
 `
 const styles = StyleSheet.create({
@@ -45,10 +45,11 @@ export default class PodcastItem extends React.PureComponent {
       podcast,
     } = this.props
 
-    if (podcast.slug) {
+    if (podcast && podcast.slug) {
       history.push(`/app/podcasts/${podcast.slug}`)
     }
   }
+
   render() {
     const {
       podcast,

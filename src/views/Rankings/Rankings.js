@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 import RankingsList from './components/RankingsList'
 
+import handleFirstDate from 'helpers/handleFirstDate'
 import MonthPicker from 'components/MonthPicker'
 import CustomHeader from 'components/CustomHeader'
 
@@ -35,7 +36,7 @@ export default class Rankings extends React.Component {
     super(props)
 
     this.state = {
-      date: new Date().toISOString(),
+      date: handleFirstDate(),
     }
   }
 

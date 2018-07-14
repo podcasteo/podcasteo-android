@@ -4,15 +4,16 @@ import {
   Query,
 } from 'react-apollo'
 
-import PodcastHorizontalList from 'components/PodcastHorizontalList'
 import rankingsQuery from 'api/podcasts/query/rankings'
+import handleFirstDate from 'helpers/handleFirstDate'
+import PodcastHorizontalList from 'components/PodcastHorizontalList'
 
 export default class PodcastsRanking extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      date: new Date().toISOString(),
+      date: handleFirstDate(),
       first: 10,
       offset: 0,
     }

@@ -84,7 +84,9 @@ export default class RankingItem extends React.PureComponent {
       podcast,
     } = this.props
 
-    history.push(`/app/podcasts/${podcast.slug}`)
+    if (podcast && podcast.slug) {
+      history.push(`/app/podcasts/${podcast.slug}`)
+    }
   }
 
   getRankingProgression = () => {
