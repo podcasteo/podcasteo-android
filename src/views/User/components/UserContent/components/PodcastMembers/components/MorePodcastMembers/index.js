@@ -6,7 +6,7 @@ import {
 } from 'react-apollo'
 
 import PodcastsModal from 'components/PodcastsModal'
-import userPodcastMembersQuery from 'api/users/userPodcastMembers'
+import userPodcastMembersQuery from 'api/users/query/userPodcastMembers'
 
 export default class MorePodcastMembers extends React.PureComponent {
   static propTypes = {

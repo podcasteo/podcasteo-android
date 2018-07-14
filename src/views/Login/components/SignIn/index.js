@@ -4,58 +4,34 @@ import styled from 'styled-components'
 import get from 'lodash/get'
 import AwesomeButton from 'react-native-really-awesome-button'
 import {
+  Alert,
   AsyncStorage,
-  StyleSheet,
 } from 'react-native'
 import { // eslint-disable-line
   FontAwesome,
 } from '@expo/vector-icons'
-import {
-  Input,
-} from 'react-native-elements'
 
 import settings from 'helpers/settings'
 import validateEmail from 'helpers/validateEmail'
-import PasswordInput from 'components/PasswordInput'
+import HideoInput from 'components/CustomInput/Hideo'
 
 const Screen = styled.View`
   flex: 1;
 `
-const Scroll = styled.ScrollView`
-  margin-bottom: 20;
-  flex: 1;
-`
-const Formulaire = styled.View`
-  flex: 1;
-  margin-top: 20;
-  margin-bottom: 20;
-`
-const InputLine = styled.View`
-  flex-direction: row;
-  align-items: baseline;
-  justify-content: space-around;
-  margin-left: 15;
-  margin-bottom: 15;
-  margin-right: 15;
-`
-const Error = styled.Text`
-  margin-left: 10;
-  margin-bottom: 10;
-  font-weight: bold;
-  color: red;
+const InformationContainer = styled.ScrollView`
+  margin-top: 10%
+  margin-bottom: 20%;
 `
 const ButtonContainer = styled.View`
   justify-content: center;
   align-items: center;
 `
-const styles = StyleSheet.create({
-  input: {
-    marginBottom: 10,
-  },
-  container: {
-    paddingBottom: 20,
-  },
-})
+const InputLine = styled.View`
+  flex: 1;
+  margin-bottom: 15;
+  margin-right: 15;
+  margin-left: 10;
+`
 
 export default class SignIn extends React.Component {
   static propTypes = {
@@ -68,13 +44,12 @@ export default class SignIn extends React.Component {
 
     this.state = {
       email: '',
-      error: null,
-      isLoading: false,
       password: '',
+      isLoading: false,
     }
   }
 
-  onLogin = async () => {
+  _onLogin = async () => {
     const {
       email,
       password,
@@ -84,23 +59,19 @@ export default class SignIn extends React.Component {
       history,
     } = this.props
 
-    if (!validateEmail(email)) {
-      return this.setState({
-        error: 'invalid email',
-      })
-    }
-
-    if (get(password, 'length', 0) < 3) {
-      return this.setState({
-        error: 'invalid password',
-      })
-    }
-
-    this.setState({
-      isLoading: true,
-    })
-
     try {
+      if (!validateEmail(email)) {
+        throw new Error('email invalide')
+      }
+
+      if (get(password, 'length', 0) < 3) {
+        throw new Error('mot de passe invalide')
+      }
+
+      this.setState({
+        isLoading: true,
+      })
+
       const result = await onLogin({
         email,
         password,
@@ -114,74 +85,87 @@ export default class SignIn extends React.Component {
 
       return history.push('/app/dashboard')
     } catch (error) {
+      Alert.alert(
+        'Connexion',
+        `Une erreur est survenue : ${error.message}`,
+        [
+          {
+            text: 'Cancel',
+            onPress: () => {},
+            style: 'cancel',
+          },
+          {
+            text: 'OK', onPress: () => {},
+          },
+        ],
+        {
+          cancelable: true,
+        },
+      )
+
       this.setState({
         isLoading: false,
-        error: 'Something went wrong...',
       })
-    }
 
-    return true
+      return true
+    }
   }
 
   render() {
     return (
       <Screen>
-        <Scroll
-          contentContainerStyle={styles.container}
-          keyboardShouldPersistTaps="handled"
-        >
-          <Formulaire>
-            <InputLine>
-              <FontAwesome
-                name="envelope-o"
-                size={32}
-                color="gray"
-              />
-              <Input
-                containerStyle={styles.input}
-                onChangeText={(email) => this.setState({
-                  email,
-                })}
-                placeholder="Email"
-                value={this.state.email}
-                keyboardType="email-address"
-                autoCapitalize="none"
-                onSubmitEditing={() => {
-                  this.passwordInput.focus()
-                }}
-              />
-            </InputLine>
-            <InputLine>
-              <FontAwesome
-                name="lock"
-                size={32}
-                color="gray"
-              />
-              <PasswordInput
-                inputRef={(passwordInput) => {
-                  this.passwordInput = passwordInput
-                }}
-                onChangeText={(password) => this.setState({
-                 password,
-                })}
-                placeholder="Mot de passe"
-                value={this.state.password}
-                autoCorrect={false}
-                autoCapitalize="none"
-              />
-            </InputLine>
-          </Formulaire>
-        </Scroll>
-        <Error>{this.state.error}</Error>
+        <InformationContainer>
+          <InputLine>
+            <HideoInput
+              iconClass={FontAwesome}
+              iconName="envelope"
+              iconColor="white"
+              iconBackgroundColor="#247DAB"
+              onChangeText={(email) => this.setState({
+                email,
+              })}
+              inputStyle={{
+                color: 'black',
+              }}
+              placeholder="chuck.norris@mail.com"
+              value={this.state.email}
+              autoCapitalize="none"
+              keyboardType="email-address"
+              onSubmitEditing={() => {
+                this.passwordInput.focus()
+              }}
+            />
+          </InputLine>
+          <InputLine>
+            <HideoInput
+              ref={(passwordInput) => this.passwordInput = passwordInput} // eslint-disable-line
+              iconClass={FontAwesome}
+              iconName="lock"
+              iconColor="white"
+              iconBackgroundColor="#247DAB"
+              onChangeText={(password) => this.setState({
+                password,
+              })}
+              inputStyle={{
+                color: 'black',
+              }}
+              placeholder="password"
+              value={this.state.password}
+              autoCapitalize="none"
+              autoCorrect={false}
+              isPassword
+            />
+          </InputLine>
+        </InformationContainer>
         <ButtonContainer>
           <AwesomeButton
             progress
+            backgroundColor={this.state.isLoading ? '#DFDFDF' : '#FF4242'}
+            backgroundDarker={this.state.isLoading ? '#CACACA' : '#B62828'}
             onPress={async (next) => {
-              await this.onLogin()
+              await this._onLogin()
               next()
             }}
-            backgroundColor="#FF4242"
-            backgroundDarker="#B62828"
             disabled={this.state.isLoading}
           >
             Connexion

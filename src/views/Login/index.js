@@ -7,9 +7,9 @@ import {
 
 import LoginView from './Login'
 
-import createUserMutation from 'api/users/createUser'
-import handleFacebookMutation from 'api/users/handleFacebook'
-import loginMutation from 'api/users/login'
+import createUserMutation from 'api/users/mutation/createUser'
+import handleFacebookMutation from 'api/users/mutation/handleFacebook'
+import loginMutation from 'api/users/mutation/login'
 
 @graphql(loginMutation, {
   name: 'loginMutation',

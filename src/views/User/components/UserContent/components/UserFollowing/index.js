@@ -7,7 +7,7 @@ import {
 
 import UserFollowingView from './UserFollowing'
 
-import userFollowingQuery from 'api/users/userFollowing'
+import userFollowingQuery from 'api/users/query/userFollowing'
 
 export default class UserFollowing extends React.PureComponent {
   static propTypes = {

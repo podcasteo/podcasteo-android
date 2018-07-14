@@ -6,7 +6,7 @@ import {
 } from 'react-apollo'
 
 import UsersModal from 'components/UsersModal'
-import userFollowersQuery from 'api/users/userFollowers'
+import userFollowersQuery from 'api/users/query/userFollowers'
 
 export default class MoreUserFollowers extends React.PureComponent {
   static propTypes = {

@@ -9,7 +9,7 @@ import {
   Redirect,
 } from 'react-router-native'
 
-import selfQuery from 'api/users/self'
+import selfQuery from 'api/users/query/self'
 import settings from 'helpers/settings'
 import Loader from 'components/Loader'
 

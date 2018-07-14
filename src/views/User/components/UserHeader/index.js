@@ -7,10 +7,10 @@ import {
 
 import UserHeaderView from './UserHeader'
 
-import followUserMutation from 'api/users/followUserMutation'
-import unfollowUserMutation from 'api/users/unfollowUserMutation'
-import userQuery from 'api/users/user'
-import userFollowersQuery from 'api/users/userFollowers'
+import followUserMutation from 'api/users/mutation/followUser'
+import unfollowUserMutation from 'api/users/mutation/unfollowUser'
+import userQuery from 'api/users/query/user'
+import userFollowersQuery from 'api/users/query/userFollowers'
 
 @graphql(followUserMutation, {
   props: ({

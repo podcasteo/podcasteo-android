@@ -14,8 +14,8 @@ import {
   setContext,
 } from 'apollo-link-context'
 import {
-  HttpLink,
-} from 'apollo-link-http'
+  createUploadLink,
+} from 'apollo-upload-client'
 
 import settings from 'helpers/settings'
 
@@ -37,11 +37,11 @@ const authMiddleware = setContext(async () => {
 
   return context
 })
-const httpLink = new HttpLink({
+const uploadLink = createUploadLink({
   uri: settings.graphqlAPI,
 })
 const client = new ApolloClient({
-  link: concat(authMiddleware, httpLink),
+  link: concat(authMiddleware, uploadLink),
   cache: new InMemoryCache(),
 })
 

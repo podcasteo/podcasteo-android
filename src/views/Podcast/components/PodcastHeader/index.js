@@ -4,10 +4,10 @@ import {
 
 import PodcastHeaderView from './PodcastHeader'
 
-import likePodcastMutation from 'api/podcasts/likePodcastMutation'
-import dislikePodcastMutation from 'api/podcasts/dislikePodcastMutation'
-import podcastQuery from 'api/podcasts/podcast'
-import podcastUserLikes from 'api/podcasts/podcastUserLikes'
+import likePodcastMutation from 'api/podcasts/mutation/likePodcast'
+import dislikePodcastMutation from 'api/podcasts/mutation/dislikePodcast'
+import podcastQuery from 'api/podcasts/query/podcast'
+import podcastUserLikes from 'api/podcasts/query/podcastUserLikes'
 
 @graphql(likePodcastMutation, {
   props: ({

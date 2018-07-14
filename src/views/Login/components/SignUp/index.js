@@ -4,55 +4,34 @@ import styled from 'styled-components'
 import get from 'lodash/get'
 import AwesomeButton from 'react-native-really-awesome-button'
 import {
+  Alert,
   AsyncStorage,
-  StyleSheet,
 } from 'react-native'
 import { // eslint-disable-line
   FontAwesome,
 } from '@expo/vector-icons'
-import {
-  Input,
-} from 'react-native-elements'
 
 import settings from 'helpers/settings'
 import validateEmail from 'helpers/validateEmail'
-import PasswordInput from 'components/PasswordInput'
+import HideoInput from 'components/CustomInput/Hideo'
 
-const Screen = styled.KeyboardAvoidingView`
+const Screen = styled.View`
   flex: 1;
 `
-const Scroll = styled.ScrollView`
-  height: 500;
-`
-const Formulaire = styled.View`
-  margin-top: 20;
-  margin-bottom: 20;
-`
-const InputLine = styled.View`
-  flex-direction: row;
-  align-items: baseline;
-  justify-content: space-around;
-  margin-left: 15;
-  margin-bottom: 15;
-  margin-right: 15;
-`
-const ErrorText = styled.Text`
-  margin-left: 10;
-  font-weight: bold;
-  color: red;
+const InformationContainer = styled.ScrollView`
+  margin-top: 10%
+  margin-bottom: 10%;
 `
 const ButtonContainer = styled.View`
   justify-content: center;
   align-items: center;
 `
-const styles = StyleSheet.create({
-  input: {
-    marginBottom: 10,
-  },
-  container: {
-    paddingBottom: 20,
-  },
-})
+const InputLine = styled.View`
+  flex: 1;
+  margin-bottom: 15;
+  margin-right: 15;
+  margin-left: 10;
+`
 
 export default class SignUp extends React.Component {
   static propTypes = {
@@ -66,14 +45,13 @@ export default class SignUp extends React.Component {
     this.state = {
       confirmPassword: '',
       email: '',
-      error: '',
       password: '',
       isLoading: false,
       username: '',
     }
   }
 
-  onSignUp = async () => {
+  _onSignUp = async () => {
     const {
       confirmPassword,
       email,
@@ -85,35 +63,23 @@ export default class SignUp extends React.Component {
       history,
     } = this.props
 
-    if (get(username, 'length', 0) < 3) {
-      return this.setState({
-        error: 'invalid username',
-      })
-    }
-
-    if (!validateEmail(email)) {
-      return this.setState({
-        error: 'invalid email',
-      })
-    }
-
-    if (get(password, 'length', 0) < 3) {
-      return this.setState({
-        error: 'invalid password',
-      })
-    }
-
-    if (get(password, 'length', 0) < 3 || password !== confirmPassword) {
-      return this.setState({
-        error: 'invalid password',
-      })
-    }
-
-    this.setState({
-      isLoading: true,
-    })
-
     try {
+      if (get(username, 'length', 0) < 3) {
+        throw new Error('pseudo invalide')
+      }
+
+      if (!validateEmail(email)) {
+        throw new Error('email invalide')
+      }
+
+      if (get(password, 'length', 0) < 3 || password !== confirmPassword) {
+        throw new Error('invalid password')
+      }
+
+      this.setState({
+        isLoading: true,
+      })
+
       const result = await createUser({
         username,
         email,
@@ -128,13 +94,30 @@ export default class SignUp extends React.Component {
 
       return history.push('/app/dashboard')
     } catch (error) {
+      Alert.alert(
+        'Inscription',
+        `Une erreur est survenue : ${error.message}`,
+        [
+          {
+            text: 'Cancel',
+            onPress: () => {},
+            style: 'cancel',
+          },
+          {
+            text: 'OK', onPress: () => {},
+          },
+        ],
+        {
+          cancelable: true,
+        },
+      )
+
       this.setState({
         isLoading: false,
-        error: 'Something went wrong...',
       })
-    }
 
-    return true
+      return true
+    }
   }
 
   render() {
@@ -143,104 +126,100 @@ export default class SignUp extends React.Component {
         behavior="padding"
         enabled
       >
-        <Scroll
-          contentContainerStyle={styles.container}
-          keyboardShouldPersistTaps="handled"
-        >
-          <Formulaire>
-            <InputLine>
-              <FontAwesome
-                name="user-circle"
-                size={32}
-                color="gray"
-              />
-              <Input
-                containerStyle={styles.input}
-                onChangeText={(username) => this.setState({
-                  username,
-                })}
-                placeholder="Username"
-                value={this.state.username}
-                autoCapitalize="none"
-                onSubmitEditing={() => {
-                  this.emailInput.focus()
-                }}
-              />
-            </InputLine>
-            <InputLine>
-              <FontAwesome
-                name="envelope-o"
-                size={32}
-                color="gray"
-              />
-              <Input
-                ref={(emailInput) => {
-                  this.emailInput = emailInput
-                }}
-                containerStyle={styles.input}
-                onChangeText={(email) => this.setState({
-                  email,
-                })}
-                placeholder="Email"
-                value={this.state.email}
-                keyboardType="email-address"
-                autoCapitalize="none"
-                onSubmitEditing={() => {
-                  this.passwordInput.focus()
-                }}
-              />
-            </InputLine>
-            <InputLine>
-              <FontAwesome
-                name="lock"
-                size={32}
-                color="gray"
-              />
-              <PasswordInput
-                inputRef={(passwordInput) => {
-                  this.passwordInput = passwordInput
-                }}
-                onChangeText={(password) => this.setState({
-                 password,
-                })}
-                placeholder="Mot de passe"
-                value={this.state.password}
-                autoCorrect={false}
-                autoCapitalize="none"
-                onSubmitEditing={() => {
-                  this.confirmPasswordInput.focus()
-                }}
-              />
-            </InputLine>
-            <InputLine>
-              <FontAwesome
-                name="lock"
-                size={32}
-                color="gray"
-              />
-              <PasswordInput
-                inputRef={(confirmPasswordInput) => {
-                  this.confirmPasswordInput = confirmPasswordInput
-                }}
-                onChangeText={(confirmPassword) => this.setState({
-                 confirmPassword,
-                })}
-                placeholder="Mot de passe"
-                value={this.state.confirmPassword}
-                autoCorrect={false}
-                autoCapitalize="none"
-              />
-            </InputLine>
-          </Formulaire>
-        </Scroll>
-        <ErrorText>{this.state.error}</ErrorText>
+        <InformationContainer>
+          <InputLine>
+            <HideoInput
+              iconClass={FontAwesome}
+              iconName="user"
+              iconColor="white"
+              iconBackgroundColor="#247DAB"
+              onChangeText={(username) => this.setState({
+                username,
+              })}
+              inputStyle={{
+                color: 'black',
+              }}
+              placeholder="pseudo"
+              value={this.state.username}
+              autoCapitalize="none"
+              onSubmitEditing={() => {
+                this.emailInput.focus()
+              }}
+            />
+          </InputLine>
+          <InputLine>
+            <HideoInput
+              ref={(emailInput) => this.emailInput = emailInput} // eslint-disable-line
+              iconClass={FontAwesome}
+              iconName="envelope"
+              iconColor="white"
+              iconBackgroundColor="#247DAB"
+              onChangeText={(email) => this.setState({
+                email,
+              })}
+              inputStyle={{
+                color: 'black',
+              }}
+              placeholder="chuck.norris@mail.com"
+              value={this.state.email}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              onSubmitEditing={() => {
+                this.passwordInput.focus()
+              }}
+            />
+          </InputLine>
+          <InputLine>
+            <HideoInput
+              ref={(passwordInput) => this.passwordInput = passwordInput} // eslint-disable-line
+              iconClass={FontAwesome}
+              iconName="lock"
+              iconColor="white"
+              iconBackgroundColor="#247DAB"
+              onChangeText={(password) => this.setState({
+                password,
+              })}
+              inputStyle={{
+                color: 'black',
+              }}
+              placeholder="password"
+              value={this.state.password}
+              autoCapitalize="none"
+              autoCorrect={false}
+              isPassword
+              onSubmitEditing={() => {
+                this.confirmPassword.focus()
+              }}
+            />
+          </InputLine>
+          <InputLine>
+            <HideoInput
+              ref={(confirmPassword) => this.confirmPassword = confirmPassword} // eslint-disable-line
+              iconClass={FontAwesome}
+              iconName="lock"
+              iconColor="white"
+              iconBackgroundColor="#247DAB"
+              onChangeText={(confirmPassword) => this.setState({
+                confirmPassword,
+              })}
+              inputStyle={{
+                color: 'black',
+              }}
+              placeholder="password"
+              value={this.state.confirmPassword}
+              autoCapitalize="none"
+              autoCorrect={false}
+              isPassword
+            />
+          </InputLine>
+        </InformationContainer>
         <ButtonContainer>
           <AwesomeButton
             progress
-            backgroundColor="#FF4242"
-            backgroundDarker="#B62828"
+            backgroundColor={this.state.isLoading ? '#DFDFDF' : '#FF4242'}
+            backgroundDarker={this.state.isLoading ? '#CACACA' : '#B62828'}
             onPress={async (next) => {
-              await this.onSignUp()
+              await this._onSignUp()
               next()
             }}
             disabled={this.state.isLoading}

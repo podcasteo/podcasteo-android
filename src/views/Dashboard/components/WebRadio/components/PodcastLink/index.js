@@ -6,7 +6,7 @@ import {
 } from 'react-apollo'
 
 import PodcastItem from 'components/PodcastItem'
-import podcastQuery from 'api/podcasts/podcast'
+import podcastQuery from 'api/podcasts/query/podcast'
 
 export default class PodcastLink extends React.PureComponent {
   static propTypes = {

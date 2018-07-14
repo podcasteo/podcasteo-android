@@ -11,7 +11,7 @@ import {
 import UserView from './User'
 
 import ErrorView from 'components/ErrorView'
-import userQuery from 'api/users/user'
+import userQuery from 'api/users/query/user'
 
 class User extends React.PureComponent {
   static propTypes = {

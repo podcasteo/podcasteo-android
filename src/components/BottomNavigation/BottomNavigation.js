@@ -4,29 +4,21 @@ import find from 'lodash/find'
 import {
   matchPath,
 } from 'react-router-native'
-import BottomNavigation, {
-  ShiftingTab,
-} from 'react-native-material-bottom-navigation'
+import BottomNavigation from 'react-native-material-bottom-navigation'
 import { // eslint-disable-line
   FontAwesome,
 } from '@expo/vector-icons'
+
+import ShiftingTab from 'components/ShiftingTab'
 
 const navigations = [
   {
     key: 'ranking',
     icon: 'signal',
-    label: 'Ranking',
+    label: 'Allo',
     barColor: '#E0E0E0',
     pressColor: 'rgba(0, 0, 0, 0.16)',
     path: '/app/rankings',
-  },
-  {
-    key: 'groups',
-    icon: 'group',
-    label: 'Groups',
-    barColor: '#E0E0E0',
-    pressColor: 'rgba(0, 0, 0, 0.16)',
-    path: '/app/groups',
   },
   {
     key: 'dashboard',
@@ -43,14 +35,6 @@ const navigations = [
     barColor: '#E0E0E0',
     pressColor: 'rgba(0, 0, 0, 0.16)',
     path: '/app/profile',
-  },
-  {
-    key: 'settings',
-    icon: 'wrench',
-    label: 'Settings',
-    barColor: '#E0E0E0',
-    pressColor: 'rgba(0, 0, 0, 0.16)',
-    path: '/app/settings',
   },
 ]
 

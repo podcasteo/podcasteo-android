@@ -6,7 +6,10 @@ import {
   Facebook,
 } from 'expo'
 import {
+  Alert,
   AsyncStorage,
+  KeyboardAvoidingView,
+  ScrollView,
 } from 'react-native'
 import AwesomeButton from 'react-native-really-awesome-button/src/themes/blue'
 
@@ -43,6 +46,9 @@ const ErrorText = styled.Text`
   font-weight: bold;
   color: red;
 `
+const ScrollContainer = styled.View`
+  flex: 1;
+`
 
 export default class Login extends React.Component {
   static propTypes = {
@@ -61,7 +67,15 @@ export default class Login extends React.Component {
     }
   }
 
-  onFacebookLogin = async () => {
+  setSignIn = () => this.setState({
+    signin: true,
+  })
+
+  setSignUp = () => this.setState({
+    signin: false,
+  })
+
+  _onFacebookLogin = async () => {
     const {
       handleFacebook,
       history,
@@ -98,23 +112,34 @@ export default class Login extends React.Component {
 
         return history.push('/app/dashboard')
       }
+
+      throw new Error('Facebook connexion failed')
     } catch (error) {
-      return this.setState({
+      Alert.alert(
+        'Connexion Facebook',
+        `Une erreur est survenue : ${error.message}`,
+        [
+          {
+            text: 'Cancel',
+            onPress: () => {},
+            style: 'cancel',
+          },
+          {
+            text: 'OK', onPress: () => {},
+          },
+        ],
+        {
+          cancelable: true,
+        },
+      )
+
+      this.setState({
         isLoading: false,
-        error: error.message,
       })
+
+      return true
     }
-
-    return true
   }
-
-  setSignIn = () => this.setState({
-    signin: true,
-  })
-
-  setSignUp = () => this.setState({
-    signin: false,
-  })
 
   render() {
     const {
@@ -138,26 +163,32 @@ export default class Login extends React.Component {
             title="PAS ENCORE INSCRIT"
           />
         </TabButtonRow>
-        {
-          this.state.signin
-            ? <SignIn history={history} onLogin={this.props.onLogin} />
-            : <SignUp history={history} createUser={this.props.createUser} />
-        }
-        <Bottom>
-          <ErrorText>{this.state.error}</ErrorText>
-          <TabButtonRow>
-            <AwesomeButton
-              progress
-              onPress={async (next) => {
-                await this.onFacebookLogin()
-                next()
-              }}
-              disabled={this.state.isLoading}
-            >
-              Facebook Login
-            </AwesomeButton>
-          </TabButtonRow>
-        </Bottom>
+        <ScrollView>
+          <KeyboardAvoidingView behavior="padding" enabled>
+            <ScrollContainer>
+              {
+                this.state.signin
+                  ? <SignIn history={history} onLogin={this.props.onLogin} />
+                  : <SignUp history={history} createUser={this.props.createUser} />
+              }
+              <Bottom>
+                <ErrorText>{this.state.error}</ErrorText>
+                <TabButtonRow>
+                  <AwesomeButton
+                    progress
+                    onPress={async (next) => {
+                    await this._onFacebookLogin()
+                    next()
+                  }}
+                    disabled={this.state.isLoading}
+                  >
+                  Connexion Facebook
+                  </AwesomeButton>
+                </TabButtonRow>
+              </Bottom>
+            </ScrollContainer>
+          </KeyboardAvoidingView>
+        </ScrollView>
       </Screen>
     )
   }

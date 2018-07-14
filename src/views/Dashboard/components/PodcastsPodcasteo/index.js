@@ -5,7 +5,7 @@ import {
 } from 'react-apollo'
 
 import PodcastHorizontalList from 'components/PodcastHorizontalList'
-import podcastsPodcasteoQuery from 'api/podcasts/podcastsPodcasteo'
+import podcastsPodcasteoQuery from 'api/podcasts/query/podcastsPodcasteo'
 
 export default class PodcastsPodcasteo extends React.Component {
   constructor(props) {

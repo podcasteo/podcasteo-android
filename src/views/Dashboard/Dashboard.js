@@ -11,15 +11,18 @@ flex: 1;
 flex-direction: column;
 background-color: #F3F3F3;
 `
+const DashboardContent = styled.ScrollView``
 
 export default class Dashboard extends React.PureComponent {
   render() {
     return (
       <DashboardContainer>
         <WebRadio key="WebRadio" />
-        <PodcastsRanking key="PodcastsRanking" />
-        <PodcastsWomen key="PodcastsWomen" />
-        <PodcastsPodcasteo key="PodcastsPodcasteo" />
+        <DashboardContent>
+          <PodcastsRanking key="PodcastsRanking" />
+          <PodcastsWomen key="PodcastsWomen" />
+          <PodcastsPodcasteo key="PodcastsPodcasteo" />
+        </DashboardContent>
       </DashboardContainer>
     )
   }

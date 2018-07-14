@@ -10,7 +10,7 @@ import {
 
 import RankingBarView from './RankingBar'
 
-import podcastRankingsQuery from 'api/podcasts/podcastRankings'
+import podcastRankingsQuery from 'api/podcasts/query/podcastRankings'
 
 class RankingBar extends React.Component {
   static propTypes = {

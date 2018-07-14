@@ -6,7 +6,7 @@ import {
 
 import RankingsListView from './RankingsList'
 
-import rankingsQuery from 'api/podcasts/rankings'
+import rankingsQuery from 'api/podcasts/query/rankings'
 import ErrorView from 'components/ErrorView'
 
 export default class RankingsList extends React.PureComponent {

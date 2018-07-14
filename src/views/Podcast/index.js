@@ -11,7 +11,7 @@ import {
 import PodcastView from './Podcast'
 
 import ErrorView from 'components/ErrorView'
-import podcastQuery from 'api/podcasts/podcast'
+import podcastQuery from 'api/podcasts/query/podcast'
 
 class Podcast extends React.PureComponent {
   static propTypes = {

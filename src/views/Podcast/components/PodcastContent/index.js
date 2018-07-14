@@ -7,7 +7,7 @@ import {
 
 import PodcastContentView from './PodcastContent'
 
-import podcastContentQuery from 'api/podcasts/podcastContent'
+import podcastContentQuery from 'api/podcasts/query/podcastContent'
 
 class PodcastContent extends React.PureComponent {
   static propTypes = {

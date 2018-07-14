@@ -7,7 +7,7 @@ import {
 
 import PodcastMembersView from './PodcastMembers'
 
-import userPodcastMembersQuery from 'api/users/userPodcastMembers'
+import userPodcastMembersQuery from 'api/users/query/userPodcastMembers'
 
 export default class PodcastMembers extends React.PureComponent {
   static propTypes = {
