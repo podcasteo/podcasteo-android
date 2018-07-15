@@ -13,7 +13,7 @@ import {
 import UserItemHorizontal from 'components/UserItemHorizontal'
 
 const UserItemContainer = styled.TouchableOpacity`
-  border-radius: 100;
+  border-radius: 35;
   height: 70;
   width: 70;
   align-items: center;

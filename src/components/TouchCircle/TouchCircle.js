@@ -10,7 +10,7 @@ const TouchCircleContainer = styled.TouchableOpacity`
   width: 50;
   align-items: center;
   justify-content: center;
-  border-radius: 100;
+  border-radius: 25;
   background: ${(props) => props.color};
   margin-right: 20;
 `

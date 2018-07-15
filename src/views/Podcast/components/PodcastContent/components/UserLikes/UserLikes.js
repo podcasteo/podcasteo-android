@@ -66,7 +66,7 @@ export default class UserLikes extends React.PureComponent {
 
     return (
       <Container>
-        <Title>Abonnées</Title>
+        <Title>Abonnés</Title>
         <SubContainer>
           {
             dataLikes.length > 0 ? (

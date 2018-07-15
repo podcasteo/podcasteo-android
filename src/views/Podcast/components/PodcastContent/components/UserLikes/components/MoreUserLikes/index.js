@@ -28,7 +28,7 @@ export default class MoreUserLikes extends React.PureComponent {
     return (
       <UsersModal
         number={number}
-        title="Abonnées"
+        title="Abonnés"
         users={get(data, 'podcast.likes.data', []).map((item) => item.user)}
         pageInfo={get(data, 'podcast.likes.pageInfo')}
         networkStatus={networkStatus}

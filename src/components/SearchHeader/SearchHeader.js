@@ -14,8 +14,7 @@ const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0
 const HeaderContainer = styled.View`
   width: 100%;
-  height: ${APPBAR_HEIGHT};
-  padding-top: ${STATUSBAR_HEIGHT};
+  height: ${APPBAR_HEIGHT + STATUSBAR_HEIGHT};
   background-color: white;
   z-index: 100;
   boxShadow: -5px 5px 10px black;

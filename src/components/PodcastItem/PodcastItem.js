@@ -15,7 +15,7 @@ const PodcastItemContainer = styled.TouchableOpacity`
 `
 const Name = styled.Text`
   height: 20;
-  background-color: #111111B3;
+  background-color: #545454;
   color: white;
 `
 const styles = StyleSheet.create({

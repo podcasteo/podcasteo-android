@@ -33,7 +33,7 @@ const IconButton = styled.TouchableOpacity`
   margin-left: 20;
   justify-content: center;
   align-items: center;
-  border-radius: 100;
+  border-radius: 12.5;
   background-color: ${(props) => (props.isActive ? 'white' : 'black')};
 `
 const Title = styled.Text`

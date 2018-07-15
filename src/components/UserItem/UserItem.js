@@ -10,13 +10,13 @@ import ImageLoader from 'components/ImageLoader'
 
 const UserItemContainer = styled.TouchableOpacity`
   height: 70;
-  border-radius: 100;
+  border-radius: 35;
 `
 const styles = StyleSheet.create({
   avatar: {
     height: 70,
     width: 70,
-    borderRadius: 100,
+    borderRadius: 35,
   },
 })
 

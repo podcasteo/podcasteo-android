@@ -28,7 +28,7 @@ export default class MoreUserFollowers extends React.PureComponent {
     return (
       <UsersModal
         number={number}
-        title="Abonnées"
+        title="Abonnés"
         users={get(data, 'user.followers.data', []).map((item) => item.user)}
         pageInfo={get(data, 'user.followers.pageInfo')}
         networkStatus={networkStatus}

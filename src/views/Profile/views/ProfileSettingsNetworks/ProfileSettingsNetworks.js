@@ -63,8 +63,7 @@ export default class ProfileSettingsNetworks extends React.Component {
     super(props)
 
     this.state = {
-      isLoading: false,
-      isUpdate: false,
+      isLoading: true,
     }
   }
 
@@ -72,7 +71,7 @@ export default class ProfileSettingsNetworks extends React.Component {
     if (!this.props.loading && prevProps.loading && this.props.user) {
       this.setState({
         ...this.props.user,
-        isUpdate: false,
+        isLoading: false,
       })
     }
   }
@@ -100,10 +99,6 @@ export default class ProfileSettingsNetworks extends React.Component {
         username,
       })
 
-      this.setState({
-        isUpdate: false,
-      })
-
       return true
     } catch (error) {
       Alert.alert(
@@ -129,8 +124,6 @@ export default class ProfileSettingsNetworks extends React.Component {
   }
 
   render() {
-    const disabled = this.state.isLoading || !this.state.isUpdate
-
     return (
       <Container>
         <Header>
@@ -147,7 +140,6 @@ export default class ProfileSettingsNetworks extends React.Component {
                   iconBackgroundColor="#3B5998"
                   onChangeText={(facebook) => this.setState({
                     facebook,
-                    isUpdate: true,
                   })}
                   inputStyle={{
                    color: 'black',
@@ -165,7 +157,6 @@ export default class ProfileSettingsNetworks extends React.Component {
                   iconBackgroundColor="#1DA1F2"
                   onChangeText={(twitter) => this.setState({
                     twitter,
-                    isUpdate: true,
                   })}
                   inputStyle={{
                    color: 'black',
@@ -183,7 +174,6 @@ export default class ProfileSettingsNetworks extends React.Component {
                   iconBackgroundColor="#CE70A5"
                   onChangeText={(itunes) => this.setState({
                     itunes,
-                    isUpdate: true,
                   })}
                   inputStyle={{
                    color: 'black',
@@ -201,7 +191,6 @@ export default class ProfileSettingsNetworks extends React.Component {
                   iconBackgroundColor="#FF993F"
                   onChangeText={(soundcloud) => this.setState({
                     soundcloud,
-                    isUpdate: true,
                   })}
                   inputStyle={{
                    color: 'black',
@@ -216,13 +205,13 @@ export default class ProfileSettingsNetworks extends React.Component {
           <ButtonContainer>
             <AwesomeButton
               progress
-              backgroundColor={disabled ? '#DFDFDF' : '#FF4242'}
-              backgroundDarker={disabled ? '#CACACA' : '#B62828'}
+              backgroundColor={this.state.isLoading ? '#DFDFDF' : '#FF4242'}
+              backgroundDarker={this.state.isLoading ? '#CACACA' : '#B62828'}
               onPress={async (next) => {
                 await this._updateInformation()
                 next()
               }}
-              disabled={disabled}
+              disabled={this.state.isLoading}
             >
               Sauvegarder
             </AwesomeButton>

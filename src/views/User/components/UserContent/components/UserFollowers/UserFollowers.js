@@ -66,7 +66,7 @@ export default class UserFollowers extends React.PureComponent {
 
     return (
       <Container>
-        <Title>Abonnées</Title>
+        <Title>Abonnés</Title>
         <SubContainer>
           {
             dataFollowers.length > 0 ? (

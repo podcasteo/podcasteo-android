@@ -60,8 +60,7 @@ export default class ProfileUsersFollowers extends React.Component {
     super(props)
 
     this.state = {
-      isLoading: false,
-      isUpdate: false,
+      isLoading: true,
     }
   }
 
@@ -69,7 +68,7 @@ export default class ProfileUsersFollowers extends React.Component {
     if (!this.props.loading && prevProps.loading && this.props.user) {
       this.setState({
         ...this.props.user,
-        isUpdate: false,
+        isLoading: false,
       })
     }
   }
@@ -97,10 +96,6 @@ export default class ProfileUsersFollowers extends React.Component {
         username,
       })
 
-      this.setState({
-        isUpdate: false,
-      })
-
       return true
     } catch (error) {
       Alert.alert(
@@ -126,8 +121,6 @@ export default class ProfileUsersFollowers extends React.Component {
   }
 
   render() {
-    const disabled = this.state.isLoading || !this.state.isUpdate
-
     return (
       <Container>
         <Header>
@@ -143,7 +136,6 @@ export default class ProfileUsersFollowers extends React.Component {
                   passiveColor="#dadada"
                   onChangeText={(username) => this.setState({
                   username,
-                  isUpdate: true,
                 })}
                   inputStyle={{
                   color: 'black',
@@ -160,7 +152,6 @@ export default class ProfileUsersFollowers extends React.Component {
                   passiveColor="#dadada"
                   onChangeText={(email) => this.setState({
                   email,
-                  isUpdate: true,
                 })}
                   inputStyle={{
                   color: 'black',
@@ -176,7 +167,6 @@ export default class ProfileUsersFollowers extends React.Component {
                   passiveColor="#dadada"
                   onChangeText={(firstname) => this.setState({
                   firstname,
-                  isUpdate: true,
                 })}
                   inputStyle={{
                   color: 'black',
@@ -192,7 +182,6 @@ export default class ProfileUsersFollowers extends React.Component {
                   passiveColor="#dadada"
                   onChangeText={(lastname) => this.setState({
                   lastname,
-                  isUpdate: true,
                 })}
                   inputStyle={{
                   color: 'black',
@@ -208,7 +197,6 @@ export default class ProfileUsersFollowers extends React.Component {
                   passiveColor="#dadada"
                   onChangeText={(description) => this.setState({
                   description,
-                  isUpdate: true,
                 })}
                   inputStyle={{
                   color: 'black',
@@ -222,13 +210,13 @@ export default class ProfileUsersFollowers extends React.Component {
           <ButtonContainer>
             <AwesomeButton
               progress
-              backgroundColor={disabled ? '#DFDFDF' : '#FF4242'}
-              backgroundDarker={disabled ? '#CACACA' : '#B62828'}
+              backgroundColor={this.state.isLoading ? '#DFDFDF' : '#FF4242'}
+              backgroundDarker={this.state.isLoading ? '#CACACA' : '#B62828'}
               onPress={async (next) => {
                 await this._updateInformation()
                 next()
               }}
-              disabled={disabled}
+              disabled={this.state.isLoading}
             >
               Sauvegarder
             </AwesomeButton>
