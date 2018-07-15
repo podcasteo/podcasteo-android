@@ -9,9 +9,11 @@ import {
 import MoreUserFollowers from './components/MoreUserFollowers'
 
 import UserItem from 'components/UserItem'
+import Loader from 'components/Loader'
 
 const Container = styled.View`
   margin-top: 5%;
+  min-height: 100;
 `
 const Title = styled.Text`
   margin-left: 5%;
@@ -34,6 +36,7 @@ export default class UserFollowers extends React.PureComponent {
   static propTypes = {
     data: PropTypes.object,
     slug: PropTypes.string.isRequired,
+    networkStatus: PropTypes.number.isRequired,
   }
 
   static defaultProps = {
@@ -49,11 +52,11 @@ export default class UserFollowers extends React.PureComponent {
     const pageInfo = get(data, 'pageInfo', {})
     let component = null
 
-    // if (pageInfo.hasNextPage) {
-    component = (
-      <MoreUserFollowers slug={slug} number={pageInfo.totalCount - dataFollowers.length} />
-    )
-    // }
+    if (pageInfo.hasNextPage) {
+      component = (
+        <MoreUserFollowers slug={slug} number={pageInfo.totalCount - dataFollowers.length} />
+      )
+    }
 
     return component
   }
@@ -61,6 +64,7 @@ export default class UserFollowers extends React.PureComponent {
   render() {
     const {
       data,
+      networkStatus,
     } = this.props
     const dataFollowers = get(data, 'data', [])
 
@@ -69,7 +73,12 @@ export default class UserFollowers extends React.PureComponent {
         <Title>Abonnés</Title>
         <SubContainer>
           {
-            dataFollowers.length > 0 ? (
+            networkStatus !== 7 && (
+              <Loader />
+            )
+          }
+          {
+            (networkStatus === 7 && dataFollowers.length > 0) && (
               <FlatList
                 horizontal
                 enableEmptySections
@@ -83,7 +92,10 @@ export default class UserFollowers extends React.PureComponent {
                 }
                 ListFooterComponent={this._renderFooter}
               />
-            ) : (
+            )
+          }
+          {
+            (networkStatus === 7 && dataFollowers.length === 0) && (
               <SubText>
                 Aucun utilisateur
               </SubText>

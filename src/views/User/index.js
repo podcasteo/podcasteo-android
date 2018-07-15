@@ -13,7 +13,7 @@ import UserView from './User'
 import ErrorView from 'components/ErrorView'
 import userQuery from 'api/users/query/user'
 
-class User extends React.PureComponent {
+class User extends React.Component {
   static propTypes = {
     match: PropTypes.object.isRequired,
   }
@@ -54,7 +54,6 @@ class User extends React.PureComponent {
         variables={{
           slug: get(match, 'params.slug'),
         }}
-        fetchPolicy="cache-and-network"
       >
         {this.onResult}
       </Query>

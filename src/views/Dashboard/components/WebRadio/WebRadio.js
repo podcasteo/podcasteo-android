@@ -69,7 +69,7 @@ export default class WebRadio extends React.Component {
     try {
       await this.getMetadata()
     } catch (error) {
-      console.log('error did mount', error)
+      // an error on mount
     }
   }
 

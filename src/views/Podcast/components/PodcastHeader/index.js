@@ -7,7 +7,7 @@ import PodcastHeaderView from './PodcastHeader'
 import likePodcastMutation from 'api/podcasts/mutation/likePodcast'
 import dislikePodcastMutation from 'api/podcasts/mutation/dislikePodcast'
 import podcastQuery from 'api/podcasts/query/podcast'
-import podcastUserLikes from 'api/podcasts/query/podcastUserLikes'
+import podcastUserLikesQuery from 'api/podcasts/query/podcastUserLikes'
 
 @graphql(likePodcastMutation, {
   props: ({
@@ -31,10 +31,10 @@ import podcastUserLikes from 'api/podcasts/query/podcastUserLikes'
         },
       },
       {
-        query: podcastUserLikes,
+        query: podcastUserLikesQuery,
         variables: {
           slug: props.podcast.slug,
-          first: 5,
+          first: 3,
           offset: 0,
         },
       },
@@ -63,10 +63,10 @@ import podcastUserLikes from 'api/podcasts/query/podcastUserLikes'
         },
       },
       {
-        query: podcastUserLikes,
+        query: podcastUserLikesQuery,
         variables: {
           slug: props.podcast.slug,
-          first: 5,
+          first: 3,
           offset: 0,
         },
       },

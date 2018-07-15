@@ -3,14 +3,14 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Modal from 'react-native-modal'
 import {
-  ActivityIndicator,
   Dimensions,
   FlatList,
   StyleSheet,
-  View,
 } from 'react-native'
 
 import UserItemHorizontal from 'components/UserItemHorizontal'
+import ListFooter from 'components/ListFooter'
+import ListSeparator from 'components/ListSeparator'
 
 const UserItemContainer = styled.TouchableOpacity`
   border-radius: 35;
@@ -19,7 +19,7 @@ const UserItemContainer = styled.TouchableOpacity`
   align-items: center;
   align-content: center;
   justify-content: center;
-  background-color: gray;
+  background-color: #545454;
   margin-left: 10;
 `
 const Element = styled.View`
@@ -30,13 +30,16 @@ const ModalView = styled.View`
   background-color: #F3F3F3;
 `
 const TextShow = styled.Text`
-  font-size: 30;
+  font-size: 24;
   font-weight: bold;
+  color: white;
 `
 const Title = styled.Text`
   font-weight: bold;
   font-size: 24;
-  margin-bottom: 2%;
+  margin-top: 10;
+  margin-left: 10;
+  margin-bottom: 10;
 `
 const styles = StyleSheet.create({
   modal: {
@@ -82,29 +85,6 @@ export default class UsersModal extends React.PureComponent {
 
     onLoadMore()
   }
-
-  _renderSeparator = () => (
-    <View
-      style={{
-          height: 1,
-          backgroundColor: '#CED0CE',
-          margin: '2%',
-        }}
-    />
-  )
-
-  _renderFooter = () => (
-    <View
-      style={{
-          marginTop: 5,
-          paddingVertical: 20,
-          borderTopWidth: 1,
-          borderColor: '#CED0CE',
-        }}
-    >
-      <ActivityIndicator animating size="small" />
-    </View>
-  )
 
   _toggleModal = () => this.setState({
     isModalVisible: !this.state.isModalVisible,
@@ -162,8 +142,10 @@ export default class UsersModal extends React.PureComponent {
                   })}
                 />
               )}
-              ItemSeparatorComponent={this._renderSeparator}
-              ListFooterComponent={this._renderFooter}
+              ItemSeparatorComponent={ListSeparator}
+              ListFooterComponent={(
+                <ListFooter networkStatus={networkStatus} />
+              )}
             />
           </ModalView>
         </Modal>

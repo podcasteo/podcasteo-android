@@ -105,6 +105,27 @@ export default class UserHeader extends React.PureComponent {
     )
   }
 
+  onPressMember = () => {
+    Alert.alert(
+      'Inviter membre',
+      'coming soon...',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => {},
+          style: 'cancel',
+        },
+        {
+          text: 'OK',
+          onPress: () => {},
+        },
+      ],
+      {
+        cancelable: true,
+      },
+    )
+  }
+
   _followUser = async () => {
     const {
       user,
@@ -159,12 +180,12 @@ export default class UserHeader extends React.PureComponent {
             <HeaderContainer>
               <ImageRow>
                 <IconButton
-                  onPress={this.onPressFollower}
+                  onPress={this.onPressMember}
                 >
                   <FontAwesome
                     size={10}
                     color="white"
-                    name={user.isFollowing ? 'user-times' : 'user-plus'}
+                    name="user-plus"
                   />
                 </IconButton>
                 <ImageLoader
@@ -175,12 +196,12 @@ export default class UserHeader extends React.PureComponent {
                   placeholderSource={defaultUserImage}
                 />
                 <IconButton
-                  onPress={this.onPressMember}
+                  onPress={this.onPressFollower}
                 >
                   <FontAwesome
                     size={10}
-                    color="white"
-                    name="bookmark"
+                    color={user.isFollowing ? 'red' : 'white'}
+                    name="heart"
                   />
                 </IconButton>
               </ImageRow>

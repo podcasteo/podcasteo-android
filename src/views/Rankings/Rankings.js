@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import RankingsList from './components/RankingsList'
 
 import handleFirstDate from 'helpers/handleFirstDate'
-import MonthPicker from 'components/MonthPicker'
+import MonthPickerModal from 'components/MonthPickerModal'
 import CustomHeader from 'components/CustomHeader'
 
 const Screen = styled.View`
@@ -55,7 +55,7 @@ export default class Rankings extends React.Component {
           <CustomHeader />
           <Header>
             <Title>CLASSEMENT</Title>
-            <MonthPicker onSelect={this._selectDate} />
+            <MonthPickerModal onSelect={this._selectDate} />
           </Header>
         </HeaderContainer>
         <RankingsList date={date} />

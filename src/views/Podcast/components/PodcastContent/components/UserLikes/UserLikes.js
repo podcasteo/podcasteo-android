@@ -9,9 +9,11 @@ import {
 import MoreUserLikes from './components/MoreUserLikes'
 
 import UserItem from 'components/UserItem'
+import Loader from 'components/Loader'
 
 const Container = styled.View`
   margin-top: 5%;
+  min-height: 100;
 `
 const Title = styled.Text`
   margin-left: 5%;
@@ -34,6 +36,7 @@ export default class UserLikes extends React.PureComponent {
   static propTypes = {
     data: PropTypes.object,
     slug: PropTypes.string.isRequired,
+    networkStatus: PropTypes.number.isRequired,
   }
 
   static defaultProps = {
@@ -61,15 +64,28 @@ export default class UserLikes extends React.PureComponent {
   render() {
     const {
       data,
+      networkStatus,
     } = this.props
     const dataLikes = get(data, 'data', [])
 
     return (
       <Container>
         <Title>Abonnés</Title>
+        {
+          (networkStatus === 7 && dataLikes.length === 0) && (
+            <SubText>
+              Aucun utilisateur
+            </SubText>
+          )
+        }
         <SubContainer>
           {
-            dataLikes.length > 0 ? (
+            networkStatus !== 7 && (
+              <Loader />
+            )
+          }
+          {
+            (networkStatus === 7 && dataLikes.length > 0) && (
               <FlatList
                 horizontal
                 enableEmptySections
@@ -79,14 +95,11 @@ export default class UserLikes extends React.PureComponent {
                 renderItem={({item}) => // eslint-disable-line
                   (<UserItem
                     user={item.user}
+                    key={item.id}
                   />)
                 }
                 ListFooterComponent={this._renderFooter}
               />
-            ) : (
-              <SubText>
-                Aucun utilisateur
-              </SubText>
             )
           }
         </SubContainer>

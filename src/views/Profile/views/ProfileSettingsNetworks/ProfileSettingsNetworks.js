@@ -76,13 +76,12 @@ export default class ProfileSettingsNetworks extends React.Component {
     }
   }
 
-  _updateInformation = async () => {
+  _updateNetworks = async () => {
     const {
-      description,
-      email,
-      firstname,
-      lastname,
-      username,
+      facebook,
+      itunes,
+      soundcloud,
+      twitter,
     } = this.state
     const {
       updateUser,
@@ -92,11 +91,10 @@ export default class ProfileSettingsNetworks extends React.Component {
     try {
       await updateUser({
         id: user.id,
-        description,
-        email,
-        firstname,
-        lastname,
-        username,
+        facebook,
+        itunes,
+        soundcloud,
+        twitter,
       })
 
       return true
@@ -208,7 +206,7 @@ export default class ProfileSettingsNetworks extends React.Component {
               backgroundColor={this.state.isLoading ? '#DFDFDF' : '#FF4242'}
               backgroundDarker={this.state.isLoading ? '#CACACA' : '#B62828'}
               onPress={async (next) => {
-                await this._updateInformation()
+                await this._updateNetworks()
                 next()
               }}
               disabled={this.state.isLoading}

@@ -19,18 +19,20 @@ const UserItemView = styled.View`
 `
 const NameView = styled.View`
   flex: 1;
-  justify-content: center;
-  margin-left: 2%;
+  justify-content: space-around;
+  margin-left: 20;
 `
 const Name = styled.Text`
-  height: 20;
+  height: 24;
   font-weight: bold;
 `
 const styles = StyleSheet.create({
   container: {
     marginLeft: 5,
     height: 70,
-    width: 80,
+    width: 70,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   avatar: {
     height: 70,

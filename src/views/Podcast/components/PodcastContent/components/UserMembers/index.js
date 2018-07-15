@@ -17,6 +17,7 @@ export default class UserMembers extends React.PureComponent {
   onResult = (result) => {
     const {
       data,
+      networkStatus,
     } = result
     const {
       slug,
@@ -25,6 +26,7 @@ export default class UserMembers extends React.PureComponent {
     return (
       <UserMembersView
         slug={slug}
+        networkStatus={networkStatus}
         data={get(data, 'podcast.members')}
       />
     )
@@ -44,6 +46,7 @@ export default class UserMembers extends React.PureComponent {
           offset: 0,
         }}
         fetchPolicy="network-only"
+        notifyOnNetworkStatusChange
       >
         {this.onResult}
       </Query>

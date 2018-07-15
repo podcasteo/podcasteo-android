@@ -9,9 +9,11 @@ import {
 import MoreUserMembers from './components/MoreUserMembers'
 
 import UserItem from 'components/UserItem'
+import Loader from 'components/Loader'
 
 const Container = styled.View`
   margin-top: 5%;
+  min-height: 100;
 `
 const Title = styled.Text`
   margin-left: 5%;
@@ -34,6 +36,7 @@ export default class UserMembers extends React.PureComponent {
   static propTypes = {
     data: PropTypes.object,
     slug: PropTypes.string.isRequired,
+    networkStatus: PropTypes.number.isRequired,
   }
 
   static defaultProps = {
@@ -61,6 +64,7 @@ export default class UserMembers extends React.PureComponent {
   render() {
     const {
       data,
+      networkStatus,
     } = this.props
     const dataMembers = get(data, 'data', [])
 
@@ -69,7 +73,12 @@ export default class UserMembers extends React.PureComponent {
         <Title>Membres</Title>
         <SubContainer>
           {
-            dataMembers.length > 0 ? (
+            networkStatus !== 7 && (
+              <Loader />
+            )
+          }
+          {
+            (networkStatus === 7 && dataMembers.length > 0) && (
               <FlatList
                 horizontal
                 enableEmptySections
@@ -83,7 +92,10 @@ export default class UserMembers extends React.PureComponent {
                 }
                 ListFooterComponent={this._renderFooter}
               />
-            ) : (
+            )
+          }
+          {
+            (networkStatus === 7 && dataMembers.length === 0) && (
               <SubText>
                 Aucun utilisateur
               </SubText>

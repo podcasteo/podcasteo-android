@@ -4,12 +4,15 @@ import styled from 'styled-components'
 import Modal from 'react-native-modal'
 import {
   ActivityIndicator,
+  Dimensions,
   FlatList,
+  StyleSheet,
   TouchableOpacity,
   View,
 } from 'react-native'
 
 import generateDateEntry from 'helpers/generateDateEntry'
+import ListFooter from 'components/ListFooter'
 
 const Element = styled.View`
   flex: 1;
@@ -17,6 +20,13 @@ const Element = styled.View`
 const ModalView = styled.View`
   flex: 1;
   background-color: #F3F3F3;
+`
+const Title = styled.Text`
+  font-weight: bold;
+  font-size: 24;
+  margin-top: 10;
+  margin-left: 10;
+  margin-bottom: 10;
 `
 const TextShow = styled.Text`
   font-size: 16;
@@ -30,8 +40,14 @@ const DateText = styled.Text`
   padding-right: 5%;
   color: gray;
 `
+const styles = StyleSheet.create({
+  modal: {
+    marginTop: Dimensions.get('window').height * 0.30,
+    marginBottom: 0,
+  },
+})
 
-export default class MonthPicker extends React.Component {
+export default class MonthPickerModal extends React.Component {
   static propTypes = {
     onSelect: PropTypes.func,
   }
@@ -50,10 +66,6 @@ export default class MonthPicker extends React.Component {
       maxSize: 20,
     }
   }
-
-  onEndReached = () => this.setState({
-    maxSize: this.state.maxSize + 5,
-  })
 
   generateEntry = (item) => {
     const {
@@ -92,6 +104,18 @@ export default class MonthPicker extends React.Component {
     }
 
     return result
+  }
+
+  _onLoadMore = () => {
+    const {
+      maxSize,
+    } = this.state
+
+    if (maxSize < 50) {
+      this.setState({
+        maxSize: this.state.maxSize + 5,
+      })
+    }
   }
 
   _selectEntry = (value) => {
@@ -147,22 +171,35 @@ export default class MonthPicker extends React.Component {
         <Modal
           isVisible={this.state.isModalVisible}
           backdropOpacity={0.4}
-          animationIn="zoomInDown"
-          animationOut="zoomOutUp"
+          animationIn="slideInUp"
+          animationOut="slideOutDown"
           animationInTiming={500}
           animationOutTiming={500}
           backdropTransitionInTiming={500}
           backdropTransitionOutTiming={500}
+          onBackdropPress={() => this.setState({
+           isModalVisible: false,
+          })}
+          onBackButtonPress={() => this.setState({
+           isModalVisible: false,
+          })}
+          style={styles.modal}
         >
           <ModalView>
+            <Title>Mois du classement</Title>
             <FlatList
-              data={this.generateEntries()}
+              data={this.generateEntries().map((item) => ({
+                ...item,
+                key: item.value,
+              }))}
+              initialNumToRender={8}
+              onEndReachedThreshold={0.6}
+              onEndReached={this._onLoadMore}
               renderItem={({item}) => this.generateEntry(item)} // eslint-disable-line
-              keyExtractor={(item) => item.value}
-              onEndReached={this.onEndReached}
-              onEndReachedThreshold={0.1}
               ItemSeparatorComponent={this._renderSeparator}
-              ListFooterComponent={this._renderFooter}
+              ListFooterComponent={(
+                <ListFooter networkStatus={7} />
+              )}
             />
           </ModalView>
         </Modal>

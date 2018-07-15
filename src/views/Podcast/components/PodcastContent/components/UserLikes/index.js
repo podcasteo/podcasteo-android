@@ -17,6 +17,7 @@ export default class UserLikes extends React.PureComponent {
   onResult = (result) => {
     const {
       data,
+      networkStatus,
     } = result
     const {
       slug,
@@ -25,6 +26,7 @@ export default class UserLikes extends React.PureComponent {
     return (
       <UserLikesView
         slug={slug}
+        networkStatus={networkStatus}
         data={get(data, 'podcast.likes')}
       />
     )
@@ -44,6 +46,7 @@ export default class UserLikes extends React.PureComponent {
           offset: 0,
         }}
         fetchPolicy="network-only"
+        notifyOnNetworkStatusChange
       >
         {this.onResult}
       </Query>

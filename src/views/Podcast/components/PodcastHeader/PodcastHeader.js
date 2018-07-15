@@ -93,7 +93,9 @@ export default class PodcastHeader extends React.PureComponent {
       podcast.isLike ? `Se désabonner de ${podcast.name} ?` : `Suivre ${podcast.name} ?`,
       [
         {
-          text: 'Non', onPress: () => {}, style: 'cancel',
+          text: 'Non',
+          onPress: () => {},
+          style: 'cancel',
         },
         {
           text: 'Oui',
@@ -106,95 +108,118 @@ export default class PodcastHeader extends React.PureComponent {
     )
   }
 
-    _likePodcast = async () => {
-      const {
-        podcast,
-        likePodcast,
-        dislikePodcast,
-      } = this.props
+  onPressMember = () => {
+    Alert.alert(
+      'Devenir membre',
+      'coming soon...',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => {},
+          style: 'cancel',
+        },
+        {
+          text: 'OK',
+          onPress: () => {},
+        },
+      ],
+      {
+        cancelable: true,
+      },
+    )
+  }
 
-      try {
-        if (podcast.isLike) {
-          await dislikePodcast(podcast.id)
-        } else {
-          await likePodcast(podcast.id)
-        }
-      } catch (error) {
-        Alert.alert(
-          `Suivre ${podcast.name}`,
-          `Error: ${error.message}`,
-          [
-            {
-              text: 'Cancel', onPress: () => {}, style: 'cancel',
-            },
-            {
-              text: 'Close',
-              onPress: () => {},
-            },
-          ],
-          {
-            cancelable: true,
-          },
-        )
+  _likePodcast = async () => {
+    const {
+      podcast,
+      likePodcast,
+      dislikePodcast,
+    } = this.props
+
+    try {
+      if (podcast.isLike) {
+        await dislikePodcast(podcast.id)
+      } else {
+        await likePodcast(podcast.id)
       }
-    }
-
-    render() {
-      const {
-        loading,
-        podcast,
-      } = this.props
-
-      return (
-        <Cover>
-          <ImageBackgroundLoader
-            style={styles.background}
-            source={{
-            uri: podcast.avatar,
-          }}
-            placeholderSource={defaultPodcastImage}
-            blurRadius={5}
-            opacity={0.7}
-          >
-            <BackgroundContainer>
-              <HeaderContainer>
-                <ImageRow>
-                  <IconButton
-                    onPress={this.onPressMember}
-                  >
-                    <FontAwesome
-                      size={10}
-                      color={podcast.isMember ? 'black' : 'white'}
-                      name={podcast.isMember ? 'user-times' : 'user-plus'}
-                    />
-                  </IconButton>
-                  <ImageLoader
-                    style={styles.avatar}
-                    source={{
-                    uri: podcast.avatar,
-                  }}
-                    placeholderSource={defaultPodcastImage}
-                  />
-                  <IconButton
-                    onPress={this.onPressLike}
-                  >
-                    <FontAwesome
-                      size={10}
-                      color={podcast.isLike ? 'red' : 'white'}
-                      name="heart"
-                    />
-                  </IconButton>
-                </ImageRow>
-                <Title>{loading ? '...' : podcast.name.toUpperCase()}</Title>
-              </HeaderContainer>
-              <DescriptionContainer>
-                <Description>
-                  {podcast.description}
-                </Description>
-              </DescriptionContainer>
-            </BackgroundContainer>
-          </ImageBackgroundLoader>
-        </Cover>
+    } catch (error) {
+      Alert.alert(
+        `Suivre ${podcast.name}`,
+        `Error: ${error.message}`,
+        [
+          {
+            text: 'Cancel',
+            onPress: () => {},
+            style: 'cancel',
+          },
+          {
+            text: 'Close',
+            onPress: () => {},
+          },
+        ],
+        {
+          cancelable: true,
+        },
       )
     }
+  }
+
+  render() {
+    const {
+      loading,
+      podcast,
+    } = this.props
+
+    return (
+      <Cover>
+        <ImageBackgroundLoader
+          style={styles.background}
+          source={{
+            uri: podcast.avatar,
+          }}
+          placeholderSource={defaultPodcastImage}
+          blurRadius={5}
+          opacity={0.7}
+        >
+          <BackgroundContainer>
+            <HeaderContainer>
+              <ImageRow>
+                <IconButton
+                  onPress={this.onPressMember}
+                >
+                  <FontAwesome
+                    size={10}
+                    color={podcast.isMember ? 'black' : 'white'}
+                    name={podcast.isMember ? 'user-times' : 'user-plus'}
+                  />
+                </IconButton>
+                <ImageLoader
+                  style={styles.avatar}
+                  source={{
+                    uri: podcast.avatar,
+                  }}
+                  placeholderSource={defaultPodcastImage}
+                />
+                <IconButton
+                  onPress={this.onPressLike}
+                >
+                  <FontAwesome
+                    size={10}
+                    color={podcast.isLike ? 'red' : 'white'}
+                    name="heart"
+                  />
+                </IconButton>
+              </ImageRow>
+              <Title>{loading ? '...' : podcast.name.toUpperCase()}</Title>
+            </HeaderContainer>
+            <DescriptionContainer>
+              <Description>
+                {podcast.description}
+              </Description>
+            </DescriptionContainer>
+          </BackgroundContainer>
+        </ImageBackgroundLoader>
+      </Cover>
+    )
+  }
 }

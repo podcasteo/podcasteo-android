@@ -16,6 +16,7 @@ import TouchCircle from 'components/TouchCircle'
 const Container = styled.View`
   margin-top: 5%;
   margin-bottom: 5%;
+  min-height: 100;
 `
 const Title = styled.Text`
   margin-left: 5%;

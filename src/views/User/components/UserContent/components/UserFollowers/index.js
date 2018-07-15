@@ -17,6 +17,7 @@ export default class UserFollowers extends React.PureComponent {
   onResult = (result) => {
     const {
       data,
+      networkStatus,
     } = result
     const {
       slug,
@@ -25,6 +26,7 @@ export default class UserFollowers extends React.PureComponent {
     return (
       <UserFollowersView
         slug={slug}
+        networkStatus={networkStatus}
         data={get(data, 'user.followers')}
       />
     )
@@ -40,10 +42,11 @@ export default class UserFollowers extends React.PureComponent {
         query={userFollowersQuery}
         variables={{
           slug,
-          first: 5,
+          first: 3,
           offset: 0,
         }}
-        fetchPolicy="cache-and-network"
+        fetchPolicy="network-only"
+        notifyOnNetworkStatusChange
       >
         {this.onResult}
       </Query>
