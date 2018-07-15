@@ -78,10 +78,16 @@ export default class BottomNavigationView extends React.Component {
     const {
       history,
     } = this.props
+    const {
+      entries,
+    } = history
 
     this.updateTab(newTab)
 
-    return history.push(newTab.path)
+    entries[0] = entries[entries.length - 1]
+    entries.length = 1
+
+    return history.replace(newTab.path)
   }
 
   getPathTab = (currentPath) => {

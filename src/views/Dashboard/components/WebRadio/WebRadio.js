@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import TextTicker from 'react-native-text-ticker'
 import get from 'lodash/get'
 import {
   Audio,
@@ -13,6 +12,7 @@ import PodcastLink from './components/PodcastLink'
 
 import settings from 'helpers/settings'
 import webRadioSingleton from 'helpers/webRadioSingleton'
+import TextTicker from 'components/TextTicker'
 
 const WebRadioComponent = styled.View`
   height: 80;
@@ -64,13 +64,18 @@ export default class WebRadio extends React.Component {
   }
 
   async componentDidMount() {
-    await this.getMetadata()
-
     this.timer = setInterval(this.getMetadata, 20000)
+
+    try {
+      await this.getMetadata()
+    } catch (error) {
+      console.log('error did mount', error)
+    }
   }
 
   async componentWillUnmount() {
-    clearInterval(this.timer)
+    this.timer && clearInterval(this.timer) // eslint-disable-line
+    this.timer = false
   }
 
   getMetadata = async () => {
@@ -78,12 +83,15 @@ export default class WebRadio extends React.Component {
       const response = await fetch(settings.webradio.nowplaying)
       const responseData = await response.json()
 
-      this.setState(webRadioSingleton.updateInstance({
+      this.timer && this.setState(webRadioSingleton.updateInstance({ // eslint-disable-line
         title: get(responseData, 'now_playing.song.title', 'unknow...'),
         artist: get(responseData, 'now_playing.song.artist', 'unknow...'),
         slug: get(responseData, 'now_playing.song.custom_fields.podcast', null), // eslint-disable-line
       }))
+
+      return true
     } catch (error) {
+      return true
       // error on metadata
     }
   }
