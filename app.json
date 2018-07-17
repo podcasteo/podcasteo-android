@@ -28,8 +28,8 @@
         "VIBRATE",
         "WAKE_LOCK",
         "WRITE_EXTERNAL_STORAGE",
-        "com.android.launcher.permission.INSTALL_SHORTCUT",
-      ],
+        "com.android.launcher.permission.INSTALL_SHORTCUT"
+      ]
     },
     "scheme": "podcasteo"
   }
