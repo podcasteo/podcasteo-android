@@ -15,11 +15,11 @@ const styles = StyleSheet.create({
   },
   text: {
     position: 'absolute',
-    bottom: 100,
-    color: 'rgba(255, 255, 255, .7)',
-    fontSize: 16,
+    bottom: 250,
+    color: 'rgba(0, 0, 0, 1)',
+    fontWeight: 'bold',
+    fontSize: 18,
     textAlign: 'center',
-    fontWeight: '300',
     paddingHorizontal: 16,
   },
   image: {

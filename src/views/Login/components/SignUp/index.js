@@ -73,7 +73,7 @@ export default class SignUp extends React.Component {
       }
 
       if (get(password, 'length', 0) < 3 || password !== confirmPassword) {
-        throw new Error('invalid password')
+        throw new Error('mot de passe invalide')
       }
 
       this.setState({
@@ -182,7 +182,7 @@ export default class SignUp extends React.Component {
               inputStyle={{
                 color: 'black',
               }}
-              placeholder="password"
+              placeholder="mot de passe"
               value={this.state.password}
               autoCapitalize="none"
               autoCorrect={false}
@@ -205,7 +205,7 @@ export default class SignUp extends React.Component {
               inputStyle={{
                 color: 'black',
               }}
-              placeholder="password"
+              placeholder="mot de passe"
               value={this.state.confirmPassword}
               autoCapitalize="none"
               autoCorrect={false}

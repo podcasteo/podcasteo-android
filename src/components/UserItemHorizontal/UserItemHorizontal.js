@@ -5,7 +5,7 @@ import {
   StyleSheet,
 } from 'react-native'
 
-import defaultUserImage from 'assets/defaults/user.png'
+import StaticImage from 'helpers/StaticImage'
 import ImageLoader from 'components/ImageLoader'
 
 const UserItemContainer = styled.TouchableOpacity`
@@ -81,7 +81,7 @@ export default class UserItemHorizontal extends React.PureComponent {
             source={{
               uri: user.avatar,
             }}
-            placeholderSource={defaultUserImage}
+            placeholderSource={StaticImage.user}
           />
           <NameView>
             <Name>{user.username}</Name>

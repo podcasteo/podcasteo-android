@@ -14,7 +14,7 @@ import {
   ReactNativeFile,
 } from 'apollo-upload-client'
 
-import defaultUserImage from 'assets/defaults/user.png'
+import StaticImage from 'helpers/StaticImage'
 import ImageLoader from 'components/ImageLoader'
 
 const Screen = styled.View`
@@ -100,37 +100,45 @@ export default class ProfileSettingsAvatar extends React.Component {
   }
 
   getImageFromCamera = async () => {
-    const result = await ImagePicker.launchCameraAsync({
-      allowsEditing: true,
-      quality: 0.6,
-      aspect: [
-        1,
-        1,
-      ],
-    })
+    try {
+      const result = await ImagePicker.launchCameraAsync({
+        allowsEditing: true,
+        quality: 0.6,
+        aspect: [
+          1,
+          1,
+        ],
+      })
 
-    if (result.cancelled) {
+      if (result.cancelled) {
+        return true
+      }
+
+      return this._uploadFile(result)
+    } catch (error) {
       return true
     }
-
-    return this._uploadFile(result)
   }
 
   getImageFromLibrary = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
-      quality: 0.6,
-      aspect: [
-        1,
-        1,
-      ],
-    })
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        allowsEditing: true,
+        quality: 0.6,
+        aspect: [
+          1,
+          1,
+        ],
+      })
 
-    if (result.cancelled) {
+      if (result.cancelled) {
+        return true
+      }
+
+      return this._uploadFile(result)
+    } catch (error) {
       return true
     }
-
-    return this._uploadFile(result)
   }
 
   getImagePickerMethod = async () => {
@@ -144,10 +152,10 @@ export default class ProfileSettingsAvatar extends React.Component {
           style: 'cancel',
         },
         {
-          text: 'Camera', onPress: async () => this.getImageFromCamera(),
+          text: 'Appareil photo', onPress: async () => this.getImageFromCamera(),
         },
         {
-          text: 'Fichier', onPress: async () => this.getImageFromLibrary(),
+          text: 'Fichiers', onPress: async () => this.getImageFromLibrary(),
         },
       ],
       {
@@ -257,7 +265,7 @@ export default class ProfileSettingsAvatar extends React.Component {
               source={{
                 uri: user.avatar,
               }}
-              placeholderSource={defaultUserImage}
+              placeholderSource={StaticImage.user}
             />
           </ImageContainer>
           <ButtonContainer>
@@ -265,7 +273,7 @@ export default class ProfileSettingsAvatar extends React.Component {
               onPress={this._updateAvatar}
               disabled={loading || uploading}
             >
-              Change Avatar
+              Choisir un avatar
             </AwesomeButton>
           </ButtonContainer>
         </SpaceContainer>

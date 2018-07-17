@@ -5,7 +5,7 @@ import {
   StyleSheet,
 } from 'react-native'
 
-import defaultPodcastImage from 'assets/defaults/podcast.png'
+import StaticImage from 'helpers/StaticImage'
 import ImageLoader from 'components/ImageLoader'
 
 const PodcastItemContainer = styled.TouchableOpacity`
@@ -72,7 +72,7 @@ export default class PodcastItemHorizontal extends React.PureComponent {
             source={{
               uri: podcast.avatar,
             }}
-            placeholderSource={defaultPodcastImage}
+            placeholderSource={StaticImage.podcast}
           />
           <NameView>
             <Name>{podcast.name}</Name>

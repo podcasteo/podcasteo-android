@@ -83,11 +83,11 @@ export default class SearchUsers extends React.PureComponent {
 
     return (
       <Container>
-        <Title>Utilisateur</Title>
+        <Title>Utilisateurs</Title>
         {
           dataUsers.length === 0 && networkStatus === 7 ? (
             <SubText>
-              Aucun Utilisateur
+              Aucun utilisateur
             </SubText>
           ) : (
             <FlatList

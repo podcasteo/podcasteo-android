@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import defaultPodcastImage from 'assets/defaults/podcast.png'
+import StaticImage from 'helpers/StaticImage'
 import ImageLoader from 'components/ImageLoader'
 
 const PodcastLinkContainer = styled.TouchableOpacity`
@@ -49,7 +49,7 @@ export default class PodcastLink extends React.PureComponent {
           source={{
             uri: podcast.avatar,
           }}
-          placeholderSource={defaultPodcastImage}
+          placeholderSource={StaticImage.podcast}
           style={{
             height: 80,
             width: 80,

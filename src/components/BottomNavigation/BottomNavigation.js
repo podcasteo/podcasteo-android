@@ -23,7 +23,7 @@ const navigations = [
   {
     key: 'dashboard',
     icon: 'play-circle',
-    label: 'Home',
+    label: 'Accueil',
     barColor: '#E0E0E0',
     pressColor: 'rgba(0, 0, 0, 0.16)',
     path: '/app/dashboard',
@@ -31,7 +31,7 @@ const navigations = [
   {
     key: 'user',
     icon: 'user-circle',
-    label: 'Profile',
+    label: 'Profil',
     barColor: '#E0E0E0',
     pressColor: 'rgba(0, 0, 0, 0.16)',
     path: '/app/profile',

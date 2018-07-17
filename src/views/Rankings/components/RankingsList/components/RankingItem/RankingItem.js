@@ -6,7 +6,7 @@ import {
   StyleSheet,
 } from 'react-native'
 
-import defaultPodcastImage from 'assets/defaults/podcast.png'
+import StaticImage from 'helpers/StaticImage'
 import ImageLoader from 'components/ImageLoader'
 
 const Screen = styled.TouchableOpacity`
@@ -139,7 +139,7 @@ export default class RankingItem extends React.PureComponent {
           source={{
             uri: podcast.avatar,
           }}
-          placeholderSource={defaultPodcastImage}
+          placeholderSource={StaticImage.podcast}
         />
         <Title>{podcast.name}</Title>
         {this.getRankingProgression()}

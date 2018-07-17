@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  Animated,
+  Image,
   View,
 } from 'react-native'
 
@@ -34,65 +34,6 @@ export default class ImageLoader extends React.Component {
     containerStyle: null,
   }
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      loaded: false,
-      imageOpacity: props.placeholderSource
-        ? new Animated.Value(1.0)
-        : new Animated.Value(0.0),
-      placeholderOpacity: new Animated.Value(1.0),
-      placeholderScale: new Animated.Value(1.0),
-    }
-  }
-
-  _onLoad = () => {
-    const {
-      placeholderScale,
-      placeholderOpacity,
-      imageOpacity,
-    } = this.state
-
-    Animated.sequence([
-      Animated.parallel([
-        Animated.timing(placeholderScale, {
-          toValue: 0.7,
-          duration: 100,
-          useNativeDriver: true,
-        }),
-        Animated.timing(placeholderOpacity, {
-          toValue: 0.66,
-          duration: 100,
-          useNativeDriver: true,
-        }),
-      ]),
-      Animated.parallel([
-        Animated.parallel([
-          Animated.timing(placeholderOpacity, {
-            toValue: 0,
-            duration: 200,
-            useNativeDriver: true,
-          }),
-          Animated.timing(placeholderScale, {
-            toValue: 1.2,
-            duration: 200,
-            useNativeDriver: true,
-          }),
-        ]),
-        Animated.timing(imageOpacity, {
-          toValue: 1.0,
-          delay: 200,
-          duration: 300,
-          useNativeDriver: true,
-        }),
-      ]),
-    ]).start(() => {
-      this.setState(() => ({
-        loaded: true,
-      }))
-    })
-  }
-
   render() {
     const {
       containerStyle,
@@ -102,65 +43,55 @@ export default class ImageLoader extends React.Component {
       source,
       ...otherProps
     } = this.props
-    const {
-      imageOpacity,
-      loaded,
-      placeholderOpacity,
-      placeholderScale,
-    } = this.state
 
     return (
       <View
         style={containerStyle || style}
       >
-        <Animated.Image
+        {
+          (placeholderSource) ? (
+            <Image
+              source={placeholderSource}
+              style={[
+                style,
+                {
+                  opacity: 1,
+                  position: 'absolute',
+                },
+              ]}
+              resizeMode="cover"
+              {...otherProps}
+            />
+          ) : (
+            <View
+              style={[
+                (containerStyle || style),
+                {
+                  backgroundColor: placeholderColor || '#90a4ae',
+                  opacity: 1,
+                  position: 'absolute',
+                  transform: [
+                    {
+                     scale: 1,
+                    },
+                  ],
+                },
+              ]}
+            />
+          )
+        }
+        <Image
           source={source}
           style={[
             style,
             {
-              opacity: imageOpacity,
+              opacity: 1,
               position: 'absolute',
             },
           ]}
-          onLoad={this._onLoad}
           resizeMode="cover"
           {...otherProps}
         />
-
-        {
-          (placeholderSource && !loaded) &&
-          <Animated.Image
-            source={placeholderSource}
-            style={[
-              style,
-              {
-                opacity: placeholderOpacity,
-                position: 'absolute',
-              },
-            ]}
-            resizeMode="cover"
-            {...otherProps}
-          />
-        }
-        {
-          (!placeholderSource && !loaded) &&
-          <Animated.View
-            style={[
-              (containerStyle || style),
-              {
-                backgroundColor: placeholderColor || '#90a4ae',
-                opacity: placeholderOpacity,
-                position: 'absolute',
-                transform: [
-                  {
-                   scale: placeholderScale,
-                  },
-                ],
-              },
-            ]}
-          />
-        }
-
       </View>
     )
   }

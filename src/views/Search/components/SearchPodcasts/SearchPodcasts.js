@@ -83,11 +83,11 @@ export default class SearchPodcasts extends React.PureComponent {
 
     return (
       <Container>
-        <Title>Podcast</Title>
+        <Title>Podcasts</Title>
         {
           dataPodcasts.length === 0 && networkStatus === 7 ? (
             <SubText>
-              Aucun Podcast
+              Aucun podcast
             </SubText>
           ) : (
             <FlatList

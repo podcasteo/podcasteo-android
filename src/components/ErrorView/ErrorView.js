@@ -6,7 +6,7 @@ import {
   StyleSheet,
 } from 'react-native'
 
-import defaultErrorImage from 'assets/defaults/error.png'
+import StaticImage from 'helpers/StaticImage'
 import ImageLoader from 'components/ImageLoader'
 
 const Screen = styled.ScrollView``
@@ -17,13 +17,13 @@ const ErrorImage = styled.View`
   align-items: center;
 `
 const ErrorMessage = styled.View`
-  flex: 1;
   margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 10%;
 `
 const ErrorTitle = styled.Text`
   font-size: 24;
   font-weight: bold;
-  margin-top: 10%;
 `
 const ErrorSubTitle = styled.Text`
   font-size: 20;
@@ -33,13 +33,10 @@ const ErrorContent = styled.Text`
   color: red;
 `
 const ErrorSeparator = styled.View`
-  margin-top: 10%;
   justify-content: center;
   align-items: center;
 `
 const ErrorReturn = styled.View`
-  flex: 1;
-  margin-top: 5%;
   justify-content: center;
   align-items: center;
 `
@@ -80,7 +77,7 @@ export default class ErrorView extends React.PureComponent {
         <ErrorImage>
           <ImageLoader
             style={styles.image}
-            source={defaultErrorImage}
+            source={StaticImage.error}
           />
         </ErrorImage>
         <ErrorMessage>
@@ -88,9 +85,10 @@ export default class ErrorView extends React.PureComponent {
           <ErrorSubTitle>{errorInformation}</ErrorSubTitle>
         </ErrorMessage>
         <ErrorSeparator>
-          <ErrorSubTitle>--- Error message ---</ErrorSubTitle>
+          <ErrorSubTitle>--- Message d'erreur ---</ErrorSubTitle>
         </ErrorSeparator>
         <ErrorMessage>
+          <ErrorTitle />
           <ErrorContent>{this.props.error.message}</ErrorContent>
         </ErrorMessage>
         <ErrorReturn>
@@ -99,7 +97,7 @@ export default class ErrorView extends React.PureComponent {
             size="small"
             onPress={this._goBack}
           >
-            Go back
+            Retour
           </AwesomeButton>
         </ErrorReturn>
       </Screen>

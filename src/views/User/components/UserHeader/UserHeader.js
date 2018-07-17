@@ -9,7 +9,7 @@ import { // eslint-disable-line
   FontAwesome,
 } from '@expo/vector-icons'
 
-import defaultUserImage from 'assets/defaults/user.png'
+import StaticImage from 'helpers/StaticImage'
 import ImageBackgroundLoader from 'components/ImageBackgroundLoader'
 import ImageLoader from 'components/ImageLoader'
 
@@ -88,7 +88,7 @@ export default class UserHeader extends React.PureComponent {
     } = this.props
 
     Alert.alert(
-      'Abonnement',
+      'Abonnements',
       user.isFollowing ? `Se désabonner de ${user.username} ?` : `Suivre ${user.username} ?`,
       [
         {
@@ -172,7 +172,7 @@ export default class UserHeader extends React.PureComponent {
           source={{
             uri: user.avatar,
           }}
-          placeholderSource={defaultUserImage}
+          placeholderSource={StaticImage.user}
           blurRadius={5}
           opacity={0.7}
         >
@@ -193,7 +193,7 @@ export default class UserHeader extends React.PureComponent {
                   source={{
                     uri: user.avatar,
                   }}
-                  placeholderSource={defaultUserImage}
+                  placeholderSource={StaticImage.user}
                 />
                 <IconButton
                   onPress={this.onPressFollower}

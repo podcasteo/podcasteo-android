@@ -5,7 +5,7 @@ import {
   StyleSheet,
 } from 'react-native'
 
-import defaultPodcastImage from 'assets/defaults/podcast.png'
+import StaticImage from 'helpers/StaticImage'
 import ImageLoader from 'components/ImageLoader'
 import shortenString from 'helpers/shortenString'
 
@@ -63,7 +63,7 @@ export default class PodcastItem extends React.PureComponent {
           source={{
             uri: podcast.avatar,
           }}
-          placeholderSource={defaultPodcastImage}
+          placeholderSource={StaticImage.podcast}
         />
         <Name>{shortenString(podcast.name, 12)}</Name>
       </PodcastItemContainer>

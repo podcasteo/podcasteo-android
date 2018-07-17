@@ -71,12 +71,12 @@ const data = [
     id: 'profileComplementary',
     links: [
       {
-        name: 'Mes Podcasts',
+        name: 'Mes podcasts',
         link: '/app/profile/podcasts/members',
         icon: 'group',
       },
       {
-        name: 'Podcasts Favoris',
+        name: 'Podcasts favoris',
         link: '/app/profile/podcasts/likes',
         icon: 'bookmark',
       },
@@ -101,12 +101,12 @@ const data = [
         icon: 'user-circle',
       },
       {
-        name: 'Réseaux Sociaux',
+        name: 'Réseaux sociaux',
         link: '/app/profile/settings/networks',
         icon: 'external-link',
       },
       {
-        name: 'Information',
+        name: 'Informations',
         link: '/app/profile/settings/information',
         icon: 'user-circle-o',
       },
@@ -116,7 +116,7 @@ const data = [
     id: 'profileAbout',
     links: [
       {
-        name: 'A propos de',
+        name: 'À propos de Podcastéo',
         link: '/app/profile/others/about',
         icon: 'question-circle',
       },

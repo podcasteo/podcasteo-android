@@ -76,7 +76,7 @@ export default class RankingBar extends React.Component {
             {this.renderValue('frequency')}
           </RankingItemValue>
           <RankingItemDescription>
-            FREQUENCE
+            FRÉQUENCE
           </RankingItemDescription>
         </RankingBox>
         <RankingBox color="#F1B82C" onPress={() => this.changeRender('itunes')}>
@@ -92,7 +92,7 @@ export default class RankingBar extends React.Component {
             {this.renderValue('network')}
           </RankingItemValue>
           <RankingItemDescription>
-            RESEAUX
+            RÉSEAUX
           </RankingItemDescription>
         </RankingBox>
       </RankingInformation>

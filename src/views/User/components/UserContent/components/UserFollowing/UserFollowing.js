@@ -70,7 +70,7 @@ export default class UserFollowing extends React.PureComponent {
 
     return (
       <Container>
-        <Title>Abonnement</Title>
+        <Title>Abonnements</Title>
         <SubContainer>
           {
             networkStatus !== 7 && (

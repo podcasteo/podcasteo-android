@@ -100,7 +100,7 @@ export default class ProfileSettingsNetworks extends React.Component {
       return true
     } catch (error) {
       Alert.alert(
-        'Profile Information',
+        'Réseaux du profil',
         'Une erreur est survenue...',
         [
           {

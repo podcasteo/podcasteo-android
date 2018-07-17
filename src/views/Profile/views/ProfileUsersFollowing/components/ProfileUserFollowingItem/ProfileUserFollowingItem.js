@@ -6,7 +6,7 @@ import {
   StyleSheet,
 } from 'react-native'
 
-import defaultUserImage from 'assets/defaults/user.png'
+import StaticImage from 'helpers/StaticImage'
 import ImageLoader from 'components/ImageLoader'
 
 const Screen = styled.TouchableOpacity`
@@ -93,7 +93,7 @@ export default class ProfileUserFollowingItem extends React.PureComponent {
           source={{
             uri: user.avatar,
           }}
-          placeholderSource={defaultUserImage}
+          placeholderSource={StaticImage.user}
         />
         <TextContainer>
           <Title>{user.username}</Title>

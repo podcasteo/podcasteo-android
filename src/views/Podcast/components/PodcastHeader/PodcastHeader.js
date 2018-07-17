@@ -9,7 +9,7 @@ import { // eslint-disable-line
   FontAwesome,
 } from '@expo/vector-icons'
 
-import defaultPodcastImage from 'assets/defaults/podcast.png'
+import StaticImage from 'helpers/StaticImage'
 import ImageBackgroundLoader from 'components/ImageBackgroundLoader'
 import ImageLoader from 'components/ImageLoader'
 
@@ -89,7 +89,7 @@ export default class PodcastHeader extends React.PureComponent {
     } = this.props
 
     Alert.alert(
-      'Abonnement',
+      'Abonnements',
       podcast.isLike ? `Se désabonner de ${podcast.name} ?` : `Suivre ${podcast.name} ?`,
       [
         {
@@ -177,7 +177,7 @@ export default class PodcastHeader extends React.PureComponent {
           source={{
             uri: podcast.avatar,
           }}
-          placeholderSource={defaultPodcastImage}
+          placeholderSource={StaticImage.podcast}
           blurRadius={5}
           opacity={0.7}
         >
@@ -198,7 +198,7 @@ export default class PodcastHeader extends React.PureComponent {
                   source={{
                     uri: podcast.avatar,
                   }}
-                  placeholderSource={defaultPodcastImage}
+                  placeholderSource={StaticImage.podcast}
                 />
                 <IconButton
                   onPress={this.onPressLike}

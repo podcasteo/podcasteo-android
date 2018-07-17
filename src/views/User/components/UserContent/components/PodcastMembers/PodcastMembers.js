@@ -85,7 +85,7 @@ export default class PodcastMembers extends React.PureComponent {
               />
             ) : (
               <SubText>
-                Aucun Podcast
+                Aucun podcast
               </SubText>
             )
           }

@@ -78,7 +78,7 @@ export default class Header extends React.PureComponent {
           <FirstSpacing />
           <TitleSpacing>
             <Title>
-              PODCASTEO
+              PODCASTÉO
             </Title>
           </TitleSpacing>
           <SearchSpacing>

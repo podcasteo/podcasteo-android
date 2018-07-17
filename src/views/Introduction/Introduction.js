@@ -38,7 +38,7 @@ const slides = [
   {
     key: 'introduction',
     title: '',
-    text: 'Rejoins la communauté Podcastéo et découvre les Podcasts du moment.',
+    text: 'Rejoins la communauté Podcastéo et découvre les podcasts du moment.',
     image: slide1,
     imageStyle: styles.image,
     backgroundColor: '#247DAB',
@@ -46,7 +46,7 @@ const slides = [
   {
     key: 'social',
     title: '',
-    text: 'En devenant membre Podcastéo tu peux découvrir la progression de tes podcasts préféré à travers différents réseaux.',
+    text: 'En devenant membre Podcastéo, tu peux découvrir la progression de tes podcasts préférés à travers différents réseaux.',
     image: slide2,
     imageStyle: styles.image,
     backgroundColor: '#247DAB',
@@ -54,7 +54,7 @@ const slides = [
   {
     key: 'radio',
     title: '',
-    text: 'Tu peux aussi écouter la webradio Podcastéo, diffusant une selection de podcast choisie avec amour.',
+    text: 'Tu peux aussi écouter la webradio Podcastéo, qui diffuse une sélection de podcasts choisis avec amour.',
     image: slide3,
     imageStyle: styles.image,
     backgroundColor: '#247DAB',

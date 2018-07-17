@@ -44,7 +44,7 @@ const InputLine = styled.View`
   margin-right: 15;
 `
 
-export default class ProfileUsersFollowers extends React.Component {
+export default class ProfileSettingsInformation extends React.Component {
   static propTypes = {
     user: PropTypes.object,
     loading: PropTypes.bool,
@@ -99,7 +99,7 @@ export default class ProfileUsersFollowers extends React.Component {
       return true
     } catch (error) {
       Alert.alert(
-        'Profile Information',
+        'Information du profil',
         'Une erreur est survenue...',
         [
           {
@@ -131,7 +131,7 @@ export default class ProfileUsersFollowers extends React.Component {
             <InformationContainer>
               <InputLine>
                 <IsaoInput
-                  label="Surnom"
+                  label="Pseudo"
                   activeColor="#da7071"
                   passiveColor="#dadada"
                   onChangeText={(username) => this.setState({
@@ -140,7 +140,7 @@ export default class ProfileUsersFollowers extends React.Component {
                   inputStyle={{
                   color: 'black',
                 }}
-                  placeholder="Surnom obligatoire"
+                  placeholder="Pseudo obligatoire"
                   value={this.state.username}
                   autoCapitalize="none"
                 />

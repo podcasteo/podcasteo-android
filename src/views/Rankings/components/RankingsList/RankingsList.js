@@ -91,7 +91,7 @@ export default class RankingsList extends React.PureComponent {
         {
           rankings.length === 0 && networkStatus === 7 ? (
             <SubText>
-              Aucun Podcast
+              Aucun podcast
             </SubText>
           ) : (
             <FlatList

@@ -6,10 +6,7 @@ import {
   StyleSheet,
 } from 'react-native'
 
-import facebookImage from 'assets/networks/facebook.png'
-import twitterImage from 'assets/networks/twitter.png'
-import soundcloudImage from 'assets/networks/soundcloud.png'
-import itunesImage from 'assets/networks/itunes.png'
+import StaticImage from 'helpers/StaticImage'
 import openURL from 'helpers/openURL'
 import TouchCircle from 'components/TouchCircle'
 
@@ -34,12 +31,6 @@ const SubText = styled.Text`
 const Separator = styled.View`
   margin-right: 5px;
 `
-const defaultsImages = {
-  facebook: facebookImage,
-  twitter: twitterImage,
-  soundcloud: soundcloudImage,
-  itunes: itunesImage,
-}
 const styles = StyleSheet.create({
   image: {
     height: 50,
@@ -117,14 +108,14 @@ export default class SocialNetworks extends React.PureComponent {
                     image={{
                       resizeMode: 'cover',
                       style: styles.image,
-                      source: defaultsImages[item.type],
+                      source: StaticImage[item.type],
                     }}
                   />)
                 }
               />
             ) : (
               <SubText>
-                Aucun Lien
+                Aucun lien
               </SubText>
             )
           }

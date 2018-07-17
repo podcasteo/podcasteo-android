@@ -149,7 +149,7 @@ export default class SignIn extends React.Component {
               inputStyle={{
                 color: 'black',
               }}
-              placeholder="password"
+              placeholder="mot de passe"
               value={this.state.password}
               autoCapitalize="none"
               autoCorrect={false}

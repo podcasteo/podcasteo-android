@@ -108,7 +108,7 @@ export default class ProfilePodcastsLikes extends React.PureComponent {
         {
           dataLikes.length === 0 && networkStatus === 7 ? (
             <SubText>
-              Aucun Podcast
+              Aucun podcast
             </SubText>
           ) : (
             <FlatList
