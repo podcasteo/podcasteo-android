@@ -4,44 +4,30 @@ import {
   Query,
 } from 'react-apollo'
 
-import PodcastHorizontalList from 'components/PodcastHorizontalList'
+import PodcastsPodcasteoView from './PodcastsPodcasteo'
+
 import podcastsPodcasteoQuery from 'api/podcasts/query/podcastsPodcasteo'
 
 export default class PodcastsPodcasteo extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      first: 10,
-      offset: 0,
-    }
-  }
-
   onResult = (result) => {
     const {
       data,
     } = result
 
     return (
-      <PodcastHorizontalList
-        title="Podcasts du réseau Podcasteo"
-        podcasts={get(data, 'podcasts.data', [])}
+      <PodcastsPodcasteoView
+        data={get(data, 'podcasts', {})}
       />
     )
   }
 
   render() {
-    const {
-      first,
-      offset,
-    } = this.state
-
     return (
       <Query
         query={podcastsPodcasteoQuery}
         variables={{
-          offset,
-          first,
+          offset: 0,
+          first: 8,
         }}
       >
         {this.onResult}

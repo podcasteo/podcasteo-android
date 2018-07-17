@@ -67,7 +67,7 @@ export default class ImageLoader extends React.Component {
               style={[
                 (containerStyle || style),
                 {
-                  backgroundColor: placeholderColor || '#90a4ae',
+                  backgroundColor: placeholderColor || '#90A4AE',
                   opacity: 1,
                   position: 'absolute',
                   transform: [

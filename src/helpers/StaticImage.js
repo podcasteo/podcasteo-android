@@ -6,4 +6,5 @@ export default class StaticImage {
   static twitter = require('assets/networks/twitter.png') // eslint-disable-line
   static soundcloud = require('assets/networks/soundcloud.png') // eslint-disable-line
   static itunes = require('assets/networks/itunes.png') // eslint-disable-line
+  static splash = require('assets/splash/app-splash.png') // eslint-disable-line
 }

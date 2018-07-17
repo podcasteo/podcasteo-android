@@ -17,15 +17,6 @@ class RankingBar extends React.Component {
     match: PropTypes.object.isRequired,
   }
 
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      first: 1,
-      offset: 0,
-    }
-  }
-
   onResult = (result) => {
     const {
       data,
@@ -39,7 +30,7 @@ class RankingBar extends React.Component {
     }
 
     if (!loading) {
-      resultData = get(data.podcast, 'rankings.data[0].data', {})
+      resultData = get(data, 'podcast.rankings.data[0].data', {})
     }
 
     return (
@@ -53,18 +44,14 @@ class RankingBar extends React.Component {
     const {
       match,
     } = this.props
-    const {
-      first,
-      offset,
-    } = this.state
 
     return (
       <Query
         query={podcastRankingsQuery}
         variables={{
           slug: get(match, 'params.slug'),
-          first,
-          offset,
+          first: 1,
+          offset: 0,
         }}
         fetchPolicy="cache-and-network"
       >

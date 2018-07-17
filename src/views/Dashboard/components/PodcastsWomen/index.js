@@ -4,44 +4,30 @@ import {
   Query,
 } from 'react-apollo'
 
-import PodcastHorizontalList from 'components/PodcastHorizontalList'
+import PodcastsWomenView from './PodcastsWomen'
+
 import podcastsWomenQuery from 'api/podcasts/query/podcastsWomen'
 
 export default class PodcastsWomen extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      first: 10,
-      offset: 0,
-    }
-  }
-
   onResult = (result) => {
     const {
       data,
     } = result
 
     return (
-      <PodcastHorizontalList
-        title="Podcasts par des femmes"
-        podcasts={get(data, 'podcasts.data', [])}
+      <PodcastsWomenView
+        data={get(data, 'podcasts', {})}
       />
     )
   }
 
   render() {
-    const {
-      first,
-      offset,
-    } = this.state
-
     return (
       <Query
         query={podcastsWomenQuery}
         variables={{
-          offset,
-          first,
+          offset: 0,
+          first: 8,
         }}
       >
         {this.onResult}

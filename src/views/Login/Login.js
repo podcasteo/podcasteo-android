@@ -110,7 +110,7 @@ export default class Login extends React.Component {
 
         await AsyncStorage.setItem(settings.authToken, result.data.handleFacebook.token)
 
-        return history.push('/app/dashboard')
+        return history.replace('/app/dashboard')
       }
 
       throw new Error('Facebook connexion failed')

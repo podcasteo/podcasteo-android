@@ -196,7 +196,7 @@ export default class TextMarquee extends PureComponent {
         // console.log(`distance: ${this.distance}, contentFits: ${this.state.contentFits}`)
         resolve([])
       } catch (error) {
-        console.warn(error)
+        // console.warn(error)
       }
     })
   }

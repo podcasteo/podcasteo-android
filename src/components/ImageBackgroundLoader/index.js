@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
+  View,
   ImageBackground,
 } from 'react-native'
 
@@ -28,15 +29,6 @@ export default class ImageBackgroundLoader extends React.Component {
     placeholderSource: unknownImage,
   }
 
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      error: false,
-      showDefault: true,
-    }
-  }
-
   render() {
     const {
       placeholderSource,
@@ -45,35 +37,25 @@ export default class ImageBackgroundLoader extends React.Component {
       children,
       ...otherProps
     } = this.props
-    const {
-      error,
-      showDefault,
-    } = this.state
-    let image = {}
-
-    image = (showDefault || !source) ? placeholderSource : source
 
     return (
-      <ImageBackground
+      <View
         style={style}
-        source={image}
-        onLoadEnd={() => {
-          if (!error) {
-            this.setState({
-              showDefault: false,
-            })
-          }
-        }}
-        onError={() => {
-          this.setState({
-            showDefault: true,
-            error: true,
-          })
-        }}
-        {...otherProps}
       >
-        {children}
-      </ImageBackground>
+        <ImageBackground
+          style={style}
+          source={placeholderSource}
+          {...otherProps}
+        >
+          <ImageBackground
+            style={style}
+            source={source}
+            {...otherProps}
+          >
+            {children}
+          </ImageBackground>
+        </ImageBackground>
+      </View>
     )
   }
 }

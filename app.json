@@ -2,9 +2,14 @@
   "expo": {
     "name": "Podcasteo",
     "icon": "./src/assets/icons/app-icon.png",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "slug": "podcasteo",
     "sdkVersion": "27.0.0",
+    "orientation": "portrait",
+    "splash": {
+      "backgroundColor": "#007CAD",
+      "image": "./src/assets/splash/app-splash.png"
+    },
     "ios": {
       "bundleIdentifier": "com.podcasteo.podcasteo",
       "infoPlist": {
@@ -13,7 +18,18 @@
     },
     "android": {
       "package": "com.podcasteo.podcasteo",
-      "versionCode": 2,
+      "versionCode": 3,
+      "permissions": [
+        "CAMERA",
+        "MANAGE_DOCUMENTS",
+        "READ_EXTERNAL_STORAGE",
+        "READ_INTERNAL_STORAGE",
+        "INTERNET",
+        "VIBRATE",
+        "WAKE_LOCK",
+        "WRITE_EXTERNAL_STORAGE",
+        "com.android.launcher.permission.INSTALL_SHORTCUT",
+      ],
     },
     "scheme": "podcasteo"
   }

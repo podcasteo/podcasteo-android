@@ -83,7 +83,7 @@ export default class SignIn extends React.Component {
         isLoading: false,
       })
 
-      return history.push('/app/dashboard')
+      return history.replace('/app/dashboard')
     } catch (error) {
       Alert.alert(
         'Connexion',

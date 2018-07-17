@@ -9,9 +9,10 @@ import {
   Redirect,
 } from 'react-router-native'
 
+import CheckLoggedInView from './CheckLoggedIn'
+
 import selfQuery from 'api/users/query/self'
 import settings from 'helpers/settings'
-import Loader from 'components/Loader'
 
 export default class CheckLoggedIn extends React.Component {
   constructor(props) {
@@ -49,7 +50,7 @@ export default class CheckLoggedIn extends React.Component {
             error,
             loading,
           }) => {
-            if (loading) return <Loader />
+            if (loading) return <CheckLoggedInView />
             if (introduction) return <Redirect to="/introduction" />
             if (error) return <Redirect to="/login" />
 

@@ -92,7 +92,7 @@ export default class SignUp extends React.Component {
         isLoading: false,
       })
 
-      return history.push('/app/dashboard')
+      return history.replace('/app/dashboard')
     } catch (error) {
       Alert.alert(
         'Inscription',
