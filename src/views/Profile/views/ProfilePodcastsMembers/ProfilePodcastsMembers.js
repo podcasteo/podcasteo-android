@@ -106,31 +106,30 @@ export default class ProfilePodcastsMembers extends React.PureComponent {
           <Title>MES PODCASTS</Title>
         </Header>
         {
-          dataMembers.length === 0 && networkStatus === 7 ? (
+          dataMembers.length === 0 && networkStatus === 7 && (
             <SubText>
               Aucun podcast
             </SubText>
-          ) : (
-            <FlatList
-              data={dataMembers.map((item) => ({
-                ...item,
-                key: item.id,
-              }))}
-              refreshing={networkStatus === 4}
-              onRefresh={refetch}
-              initialNumToRender={7}
-              onEndReachedThreshold={0.7}
-              onEndReached={this._onLoadMore}
-              renderItem={({ item }) => ( //eslint-disable-line
-                <ProfilePodcastMemberItem
-                  data={item}
-                  key={item.id}
-                />
-              )}
-              ListFooterComponent={this._renderFooter}
-            />
           )
         }
+        <FlatList
+          data={dataMembers.map((item) => ({
+            ...item,
+            key: item.id,
+          }))}
+          refreshing={networkStatus === 4}
+          onRefresh={refetch}
+          initialNumToRender={7}
+          onEndReachedThreshold={0.7}
+          onEndReached={this._onLoadMore}
+          renderItem={({ item }) => ( //eslint-disable-line
+            <ProfilePodcastMemberItem
+              data={item}
+              key={item.id}
+            />
+          )}
+          ListFooterComponent={this._renderFooter}
+        />
       </Container>
     )
   }

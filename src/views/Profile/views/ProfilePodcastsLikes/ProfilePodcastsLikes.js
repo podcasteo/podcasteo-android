@@ -106,31 +106,30 @@ export default class ProfilePodcastsLikes extends React.PureComponent {
           <Title>PODCASTS FAVORIS</Title>
         </Header>
         {
-          dataLikes.length === 0 && networkStatus === 7 ? (
+          dataLikes.length === 0 && networkStatus === 7 && (
             <SubText>
               Aucun podcast
             </SubText>
-          ) : (
-            <FlatList
-              data={dataLikes.map((item) => ({
-                ...item,
-                key: item.id,
-              }))}
-              refreshing={networkStatus === 4}
-              onRefresh={refetch}
-              initialNumToRender={7}
-              onEndReachedThreshold={0.7}
-              onEndReached={this._onLoadMore}
-              renderItem={({ item }) => ( //eslint-disable-line
-                <ProfilePodcastLikeItem
-                  data={item}
-                  key={item.id}
-                />
-              )}
-              ListFooterComponent={this._renderFooter}
-            />
           )
         }
+        <FlatList
+          data={dataLikes.map((item) => ({
+            ...item,
+            key: item.id,
+          }))}
+          refreshing={networkStatus === 4}
+          onRefresh={refetch}
+          initialNumToRender={7}
+          onEndReachedThreshold={0.7}
+          onEndReached={this._onLoadMore}
+          renderItem={({ item }) => ( //eslint-disable-line
+            <ProfilePodcastLikeItem
+              data={item}
+              key={item.id}
+            />
+          )}
+          ListFooterComponent={this._renderFooter}
+        />
       </Container>
     )
   }

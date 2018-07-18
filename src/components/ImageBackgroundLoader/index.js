@@ -43,12 +43,22 @@ export default class ImageBackgroundLoader extends React.Component {
         style={style}
       >
         <ImageBackground
-          style={style}
+          style={[
+            style,
+            {
+              width: '100%',
+            },
+          ]}
           source={placeholderSource}
           {...otherProps}
         >
           <ImageBackground
-            style={style}
+            style={[
+              style,
+              {
+                width: '100%',
+              },
+            ]}
             source={source}
             {...otherProps}
           >

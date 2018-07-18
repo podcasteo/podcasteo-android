@@ -106,31 +106,30 @@ export default class ProfileUsersFollowing extends React.PureComponent {
           <Title>MES ABONNEMENTS</Title>
         </Header>
         {
-          dataFollowing.length === 0 && networkStatus === 7 ? (
+          dataFollowing.length === 0 && networkStatus === 7 && (
             <SubText>
               Aucun utilisateur
             </SubText>
-          ) : (
-            <FlatList
-              data={dataFollowing.map((item) => ({
-                ...item,
-                key: item.id,
-              }))}
-              refreshing={networkStatus === 4}
-              onRefresh={refetch}
-              initialNumToRender={7}
-              onEndReachedThreshold={0.7}
-              onEndReached={this._onLoadMore}
-              renderItem={({ item }) => ( //eslint-disable-line
-                <ProfileUserFollowingItem
-                  data={item}
-                  key={item.id}
-                />
-              )}
-              ListFooterComponent={this._renderFooter}
-            />
           )
         }
+        <FlatList
+          data={dataFollowing.map((item) => ({
+            ...item,
+            key: item.id,
+          }))}
+          refreshing={networkStatus === 4}
+          onRefresh={refetch}
+          initialNumToRender={7}
+          onEndReachedThreshold={0.7}
+          onEndReached={this._onLoadMore}
+          renderItem={({ item }) => ( //eslint-disable-line
+            <ProfileUserFollowingItem
+              data={item}
+              key={item.id}
+            />
+          )}
+          ListFooterComponent={this._renderFooter}
+        />
       </Container>
     )
   }

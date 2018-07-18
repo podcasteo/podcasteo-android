@@ -63,7 +63,7 @@ export default class MonthPickerModal extends React.Component {
       isModalVisible: false,
       value: new Date().toString(),
       start: new Date(),
-      maxSize: 20,
+      maxSize: 10,
     }
   }
 
@@ -111,7 +111,7 @@ export default class MonthPickerModal extends React.Component {
       maxSize,
     } = this.state
 
-    if (maxSize < 50) {
+    if (maxSize < 10) {
       this.setState({
         maxSize: this.state.maxSize + 5,
       })

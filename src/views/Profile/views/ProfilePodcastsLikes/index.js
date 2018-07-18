@@ -69,6 +69,7 @@ export default class ProfilePodcastsLikes extends React.PureComponent {
           offset: 0,
           first: 10,
         }}
+        fetchPolicy="cache-and-network"
         notifyOnNetworkStatusChange
       >
         {this.onResult}

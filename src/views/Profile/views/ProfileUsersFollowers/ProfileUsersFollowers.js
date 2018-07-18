@@ -106,31 +106,30 @@ export default class ProfileUsersFollowers extends React.PureComponent {
           <Title>MES ABONNÉS</Title>
         </Header>
         {
-          dataFollowers.length === 0 && networkStatus === 7 ? (
+          dataFollowers.length === 0 && networkStatus === 7 && (
             <SubText>
               Aucun utilisateur
             </SubText>
-          ) : (
-            <FlatList
-              data={dataFollowers.map((item) => ({
-                ...item,
-                key: item.id,
-              }))}
-              refreshing={networkStatus === 4}
-              onRefresh={refetch}
-              initialNumToRender={7}
-              onEndReachedThreshold={0.7}
-              onEndReached={this._onLoadMore}
-              renderItem={({ item }) => ( //eslint-disable-line
-                <ProfileUserFollowerItem
-                  data={item}
-                  key={item.id}
-                />
-              )}
-              ListFooterComponent={this._renderFooter}
-            />
           )
         }
+        <FlatList
+          data={dataFollowers.map((item) => ({
+            ...item,
+            key: item.id,
+          }))}
+          refreshing={networkStatus === 4}
+          onRefresh={refetch}
+          initialNumToRender={7}
+          onEndReachedThreshold={0.7}
+          onEndReached={this._onLoadMore}
+          renderItem={({ item }) => ( //eslint-disable-line
+            <ProfileUserFollowerItem
+              data={item}
+              key={item.id}
+            />
+          )}
+          ListFooterComponent={this._renderFooter}
+        />
       </Container>
     )
   }
